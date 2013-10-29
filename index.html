@@ -24,7 +24,7 @@
           console.log(data)
           $('#weatherSummary ul').html('');
           $('#weatherSummary ul').append('<li>' + data.currently.summary + '</li>')
-          $('#weatherSummary ul').append('<li>' + data.currently.temperature + 'ºF</li>')
+          $('#weatherSummary ul').append('<li>' + data.currently.temperature + '&deg;F</li>')
           $('#weatherSummary ul').append('<li>' + data.currently.precipProbability + '% chance of precipitation</li>')
           $('#hourlyData').html();
           $.each(data.hourly.data, function(index, tempObject) {
