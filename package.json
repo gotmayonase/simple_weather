@@ -1,0 +1,10 @@
+{
+  "name": "simple_weather",
+  "description": "simple weather visualization",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.4.x",
+		"forecast.io": "0.0.x"
+  }
+}
