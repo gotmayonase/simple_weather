@@ -21,6 +21,7 @@
       function gotLocation(latitude, longitude) {
         APIKEY = 'f54e20e4a9969502845b541885b4165b'
         $.getJSON('https://api.forecast.io/forecast/f54e20e4a9969502845b541885b4165b/' + latitude + ',' + longitude + '?callback=?', function(data){
+          console.log(data)
           $('#weatherSummary ul').html('');
           $('#weatherSummary ul').append('<li>' + data.currently.summary + '</li>')
           $('#weatherSummary ul').append('<li>' + data.currently.temperature + 'ºF</li>')
