@@ -25,10 +25,10 @@
           var units = data.flags.units == 'us' ? 'F' : 'C';
           $('#weatherSummary ul').html('');
           $('#weatherSummary ul').append('<li>' + data.currently.summary + '</li>')
-          $('#weatherSummary ul').append('<li>' + data.currently.temperature + '&deg;' + units + '</li>')
-          $('#weatherSummary ul').append('<li>' + data.currently.precipProbability*100 + '% chance of precipitation</li>')
-          $('#weatherSummary ul').append('<li>High: ' + data.daily.data[0].temperatureMax + '&deg;' + units + '</li>')
-          $('#weatherSummary ul').append('<li>Low: ' + data.daily.data[0].temperatureMin + '&deg;' + units + '</li>')
+          $('#weatherSummary ul').append('<li>' + Math.round(data.currently.temperature) + '&deg;' + units + '</li>')
+          $('#weatherSummary ul').append('<li>' + Math.round(data.currently.precipProbability*100) + '% chance of precipitation</li>')
+          $('#weatherSummary ul').append('<li>High: ' + Math.round(data.daily.data[0].temperatureMax) + '&deg;' + units + '</li>')
+          $('#weatherSummary ul').append('<li>Low: ' + Math.round(data.daily.data[0].temperatureMin) + '&deg;' + units + '</li>')
           $('#hourlyData').html('');
           $.each(data.hourly.data, function(index, tempObject) {
             var date = new Date(tempObject.time * 1000);
@@ -47,8 +47,8 @@
               <h1>' + hours + ':00' + amPM +'</h1> \
               <ul> \
                 <li>' + tempObject.summary + '</li> \
-                <li>' + tempObject.temperature + '&deg;' + units + '</li> \
-                <li>' + tempObject.precipProbability + '% chance of precipitation</li> \
+                <li>' + Math.round(tempObject.temperature) + '&deg;' + units + '</li> \
+                <li>' + Math.round(tempObject.precipProbability*100) + '% chance of precipitation</li> \
               </ul> \
             </section>')
           })
