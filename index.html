@@ -22,12 +22,13 @@
         APIKEY = 'f54e20e4a9969502845b541885b4165b'
         $.getJSON('https://api.forecast.io/forecast/f54e20e4a9969502845b541885b4165b/' + latitude + ',' + longitude + '?units=auto&callback=?', function(data){
           console.log(data)
+          var units = data.flags.units == 'us' ? 'F' : 'C';
           $('#weatherSummary ul').html('');
           $('#weatherSummary ul').append('<li>' + data.currently.summary + '</li>')
-          $('#weatherSummary ul').append('<li>' + data.currently.temperature + '&deg;F</li>')
+          $('#weatherSummary ul').append('<li>' + data.currently.temperature + '&deg;' + units + '</li>')
           $('#weatherSummary ul').append('<li>' + data.currently.precipProbability + '% chance of precipitation</li>')
-          $('#weatherSummary ul').append('<li>High: ' + data.daily.data[0].temperatureMax + '&deg;F</li>')
-          $('#weatherSummary ul').append('<li>Low: ' + data.daily.data[0].temperatureMin + '&deg;F</li>')
+          $('#weatherSummary ul').append('<li>High: ' + data.daily.data[0].temperatureMax + '&deg;' + units + '</li>')
+          $('#weatherSummary ul').append('<li>Low: ' + data.daily.data[0].temperatureMin + '&deg;' + units + '</li>')
           $('#hourlyData').html('');
           $.each(data.hourly.data, function(index, tempObject) {
             var date = new Date(tempObject.time * 1000);
@@ -46,7 +47,7 @@
               <h1>' + hours + ':00' + amPM +'</h1> \
               <ul> \
                 <li>' + tempObject.summary + '</li> \
-                <li>' + tempObject.temperature + '&deg;F</li> \
+                <li>' + tempObject.temperature + '&deg;' + units + '</li> \
                 <li>' + tempObject.precipProbability + '% chance of precipitation</li> \
               </ul> \
             </section>')
