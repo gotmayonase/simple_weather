@@ -26,7 +26,7 @@
           $('#weatherSummary ul').html('');
           $('#weatherSummary ul').append('<li>' + data.currently.summary + '</li>')
           $('#weatherSummary ul').append('<li>' + data.currently.temperature + '&deg;' + units + '</li>')
-          $('#weatherSummary ul').append('<li>' + data.currently.precipProbability + '% chance of precipitation</li>')
+          $('#weatherSummary ul').append('<li>' + data.currently.precipProbability*100 + '% chance of precipitation</li>')
           $('#weatherSummary ul').append('<li>High: ' + data.daily.data[0].temperatureMax + '&deg;' + units + '</li>')
           $('#weatherSummary ul').append('<li>Low: ' + data.daily.data[0].temperatureMin + '&deg;' + units + '</li>')
           $('#hourlyData').html('');
