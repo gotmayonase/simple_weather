@@ -26,8 +26,8 @@
           $('#weatherSummary ul').append('<li>' + data.currently.summary + '</li>')
           $('#weatherSummary ul').append('<li>' + data.currently.temperature + '&deg;F</li>')
           $('#weatherSummary ul').append('<li>' + data.currently.precipProbability + '% chance of precipitation</li>')
-          $('#weatherSummary ul').append('<li>High: ' + data.daily[0].temperatureMax + '&deg;F</li>')
-          $('#weatherSummary ul').append('<li>Low: ' + data.daily[0].temperatureMin + '&deg;F</li>')
+          $('#weatherSummary ul').append('<li>High: ' + data.daily.data[0].temperatureMax + '&deg;F</li>')
+          $('#weatherSummary ul').append('<li>Low: ' + data.daily.data[0].temperatureMin + '&deg;F</li>')
           $('#hourlyData').html('');
           $.each(data.hourly.data, function(index, tempObject) {
             var date = new Date(tempObject.time * 1000);
