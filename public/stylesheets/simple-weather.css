@@ -1,0 +1,37 @@
+body {
+  padding-top:50px;
+}
+
+.current span{  
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  letter-spacing: -3px;
+  display: block
+}
+
+.current .tempurature {
+  font-size:7em;
+  letter-spacing: normal;
+}
+
+.times {
+  font-family: 'Quicksand', sans-serif;  
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.times li {
+  display: inline-block;
+  -webkit-transform: rotate(-50deg);
+}
+
+.times .active {
+  font-weight: bold;
+  color: red;
+}
