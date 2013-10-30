@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>    
-    <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>    
+    <script src="/javascripts/jquery.min.js"></script>    
+    <!-- <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>     -->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">   
     <link rel="stylesheet" href="/stylesheets/simple-weather.css">   
   </head>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <ul class="times">
-      <li>12 AM</li>      
+      <li class="active">12 AM</li>      
       <li>1 AM</li>
       <li>2 AM</li>
       <li>3 AM</li>
@@ -42,40 +42,33 @@
       <li>11 PM</li>
     </ul>
     <script>
-var debounce = function(func, wait, immediate) {
-  var timeout;
-  return function() {
-    var context = this, args = arguments;
-    var later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
       (function(){
         var index = 0
           , times = $('.times li')
           , count = times.length
-          , delta
+          , delta = 0
+          , width = $('.times').width() / count
+          , sum = 0;
 
         $(document).on('mousewheel', function(e){ 
-          e.preventDefault();          
-          x = debounce(function(){
-            next = index + (e.originalEvent.wheelDelta > 0 ? 1 : -1)
-            if (next > -1 && next < count){
-              index = next;
-              requestAnimationFrame(function(){
-                times.removeClass('active')
-                times.eq(index).addClass('active')
-              })
-            }             
-          },500,true)
-          x();                  
+          e.preventDefault();
+          sum -= e.originalEvent.wheelDelta;
+
+          if (sum >= width) {
+            sum = 0;
+            index += 1;
+            requestAnimationFrame(function(){
+              times.removeClass('active')
+              times.eq(index).addClass('active')
+            })
+          } else if (sum <= -width) {
+            sum = 0;
+            index -= 1;
+            requestAnimationFrame(function(){
+              times.removeClass('active')
+              times.eq(index).addClass('active')
+            })
+          }
           return false;
         })
       })();
