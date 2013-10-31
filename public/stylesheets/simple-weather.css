@@ -20,6 +20,10 @@ canvas {
 	z-index: -998;
 }
 
+.current {
+	margin-top: 50px;
+}
+
 .current span{  
   font-family: 'Quicksand', sans-serif;
   font-size: 1.5em;
@@ -28,7 +32,7 @@ canvas {
   display: block
 }
 
-.current .tempurature {
+.current .temperature {
   font-size:7em;
   letter-spacing: normal;
 }
@@ -39,8 +43,17 @@ canvas {
 	left: 0;
 	right: 0;
 	overflow: hidden;
+/*	background: rgba(255,255,255,0.5);*/
+  padding: 25px 0;  
+}
+
+.time-wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	background: rgba(255,255,255,0.5);
-  padding: 20px 0;  
+	height: 80px;
 }
 
 .times {

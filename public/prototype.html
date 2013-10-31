@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="/javascripts/jquery.min.js"></script>
-    <script src="/javascripts/rainyday.min.js"></script>
-    <script>
-      $(function(){
-        var engine = new RainyDay({
-            element: 'background',  // ID of image element
-            blur: 10,               // Defines blur due to rain effect
-            opacity: 1,             // Opacity of rain drops
-            fps: 30                 // Frame rate per second
-        });
-        engine.rain([ [3, 3, 0.88] ], 0);
-      })
-    </script>
     <link rel="stylesheet" href="/stylesheets/pure-min.css">   
     <link rel="stylesheet" href="/stylesheets/simple-weather.css">   
   </head>
@@ -80,6 +67,8 @@
         <li>24:00</li>        
       </ol>
     </div>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/rainyday.min.js"></script>
     <script>
       (function(){
         var index     = 0
@@ -123,6 +112,17 @@
           return false;
         })
       })();
+      
+      // var engine = new RainyDay({
+      //     element: 'background',  // ID of image element
+      //     blur: 10,               // Defines blur due to rain effect
+      //     opacity: 0.5,             // Opacity of rain drops
+      //     fps: 29                 // Frame rate per second
+      // });
+      
+      $(function(){
+        // engine.rain([ [3, 3, 0.88] ], 0);
+      })
     </script>    
   </body>
 </html>

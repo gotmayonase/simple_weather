@@ -1,46 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVGdgOJKBUM68fUxeK7UJLfy-Ninw-CaU&sensor=true"></script>
-    <script src="/javascripts/simple-weather.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>    
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">   
-    <link rel="stylesheet" href="/stylesheets/simple-weather.css">   
+    <link rel="stylesheet" href="/stylesheets/pure-min.css">   
+    <link rel="stylesheet" href="/stylesheets/simple-weather.css">  
   </head>
   <body>
-    <!--
-    <div class="pure-menu pure-menu-horizontal banner">
-      <a href="#" class="pure-menu-heading">Simple Weather</a>
-      <form class="pure-form">
-        <fieldset>
-          <input type="email" placeholder="Enter a location">
-          <button type="submit" class="pure-button pure-button-small pure-button-primary">Search</button>
-          <button type="submit" class="pure-button pure-button-small pure-button-primary">Current Location</button>          
-        </fieldset>
-      </form>      
-    </div>
-    -->
+    <img id="background" src="/images/cloudy.jpg" />
     <div class="pure-g-r">    
-      <div class="pure-u-1">
+      <div class="pure-u-1 current">
         <span class="location"></span>
-        <h1 class="temp"></h1>
+        <span class="temperature"></span>
         <span class="condition"></span>
       </div>
     </div>
-    <h1>Simple Weather</h1>
-    <form class="p">
-      <input type="text" placeholder="Enter a location" id="searchField"/>
-      <button type="submit">Search</button>
-    </form>
-    <button id="currentLocation">Current Location</button>
-    <h2></h2>
-    <section id="weatherSummary">
-      <h1>Current Conditions</h1>
-      <ul>
-      </ul>
-    </section>
-    <section id="hourlyData">
-    </section>
+    
+    <div class="time-wrapper">
+      <div class="time-scroll">
+        <ol class="times">
+        </ol>
+      </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVGdgOJKBUM68fUxeK7UJLfy-Ninw-CaU&sensor=true"></script>
+    <script src="/javascripts/simple-weather.js"></script>
+    
   </body>
 </html>
