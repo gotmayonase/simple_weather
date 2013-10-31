@@ -50,6 +50,7 @@
 	}
 
 	function gotLocation(latitude, longitude) {
+		$('#loading').show();
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
 	    units = data.flags.units == 'us' ? 'F' : 'C';
 			
@@ -78,6 +79,7 @@
 	    });
 			$('.times').append(new_items);
 			refreshDefaults();
+			$('#loading').hide();
 	  })
 	}
 	
@@ -102,6 +104,7 @@
 	  var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	  geocoder.geocode({'latLng': latlng}, function(results, status) {
 	    if (status == google.maps.GeocoderStatus.OK) {
+				console.log(results);
 	      if (results[1]) {
 	        $('.location').html(results[1].formatted_address)
 	      }
