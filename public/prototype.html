@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="/javascripts/jquery.min.js"></script>    
-    <!-- <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>     -->
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/rainyday.min.js"></script>
+    <script>
+      $(function(){
+        var engine = new RainyDay({
+            element: 'background',  // ID of image element
+            blur: 10,               // Defines blur due to rain effect
+            opacity: 1,             // Opacity of rain drops
+            fps: 30                 // Frame rate per second
+        });
+        engine.rain([ [3, 3, 0.88] ], 0);
+      })
+    </script>
     <link rel="stylesheet" href="/stylesheets/pure-min.css">   
     <link rel="stylesheet" href="/stylesheets/simple-weather.css">   
   </head>
   <body>
-
+    <img id="background" src="/images/cloudy.jpg" />
     <div class="pure-g-r">    
       <div class="pure-u-1 current">
         <span class="location">McKinney, TX</span>
@@ -99,7 +110,7 @@
           , delta = 0
           , width = $('.times').width() / count
           , sum = 0
-          , liWidth = 0;
+          , liWidth = 0
           , offsets = {}
           
         $('.times li').each(function() {
