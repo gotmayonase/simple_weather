@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/stylesheets/simple-weather.css">   
   </head>
   <body>
-
     <div class="pure-g-r">    
       <div class="pure-u-1 current">
         <span class="location">McKinney, TX</span>
@@ -15,120 +14,100 @@
         <span class="condition">Partly Cloudy</span>
       </div>
     </div>
-    <div class="timeContainer">
+
+    <div class="time-scroll">
       <ol class="times">
-        <li class="active">12 AM</li>      
-        <li>1 AM</li>
-        <li>2 AM</li>
-        <li>3 AM</li>
-        <li>4 AM</li>
-        <li>5 AM</li>
-        <li>6 AM</li>
-        <li>7 AM</li>
-        <li>8 AM</li>
-        <li>9 AM</li>
-        <li>10 AM</li>
-        <li>11 AM</li>
-        <li>12 PM</li>
-        <li>1 PM</li>
-        <li>2 PM</li>
-        <li>3 PM</li>
-        <li>4 PM</li>
-        <li>5 PM</li>
-        <li>6 PM</li>
-        <li>7 PM</li>
-        <li>8 PM</li>
-        <li>9 PM</li>
-        <li>10 PM</li>
-        <li>11 PM</li>
-        <li>12 AM</li>      
-        <li>1 AM</li>
-        <li>2 AM</li>
-        <li>3 AM</li>
-        <li>4 AM</li>
-        <li>5 AM</li>
-        <li>6 AM</li>
-        <li>7 AM</li>
-        <li>8 AM</li>
-        <li>9 AM</li>
-        <li>10 AM</li>
-        <li>11 AM</li>
-        <li>12 PM</li>
-        <li>1 PM</li>
-        <li>2 PM</li>
-        <li>3 PM</li>
-        <li>4 PM</li>
-        <li>5 PM</li>
-        <li>6 PM</li>
-        <li>7 PM</li>
-        <li>8 PM</li>
-        <li>9 PM</li>
-        <li>10 PM</li>
-        <li>11 PM</li>
-        <li>12 AM</li>      
-        <li>1 AM</li>
-        <li>2 AM</li>
-        <li>3 AM</li>
-        <li>4 AM</li>
-        <li>5 AM</li>
-        <li>6 AM</li>
-        <li>7 AM</li>
-        <li>8 AM</li>
-        <li>9 AM</li>
-        <li>10 AM</li>
-        <li>11 AM</li>
-        <li>12 PM</li>
-        <li>1 PM</li>
-        <li>2 PM</li>
-        <li>3 PM</li>
-        <li>4 PM</li>
-        <li>5 PM</li>
-        <li>6 PM</li>
-        <li>7 PM</li>
-        <li>8 PM</li>
-        <li>9 PM</li>
-        <li>10 PM</li>
-        <li>11 PM</li>
+        <li class="active">0:00</li>      
+        <li>1:00</li>
+        <li>2:00</li>
+        <li>3:00</li>
+        <li>4:00</li>
+        <li>5:00</li>
+        <li>6:00</li>
+        <li>7:00</li>
+        <li>8:00</li>
+        <li>9:00</li>
+        <li>10:00</li>
+        <li>11:00</li>
+        <li>12:00</li>
+        <li>13:00</li>
+        <li>14:00</li>
+        <li>15:00</li>
+        <li>16:00</li>
+        <li>17:00</li>
+        <li>18:00</li>
+        <li>19:00</li>
+        <li>20:00</li>
+        <li>21:00</li>
+        <li>22:00</li>
+        <li>23:00</li>
+        <li>24:00</li>
+        <li>1:00</li>
+        <li>2:00</li>
+        <li>3:00</li>
+        <li>4:00</li>
+        <li>5:00</li>
+        <li>6:00</li>
+        <li>7:00</li>
+        <li>8:00</li>
+        <li>9:00</li>
+        <li>10:00</li>
+        <li>11:00</li>
+        <li>12:00</li>
+        <li>13:00</li>
+        <li>14:00</li>
+        <li>15:00</li>
+        <li>16:00</li>
+        <li>17:00</li>
+        <li>18:00</li>
+        <li>19:00</li>
+        <li>20:00</li>
+        <li>21:00</li>
+        <li>22:00</li>
+        <li>23:00</li>
+        <li>24:00</li>        
       </ol>
     </div>
     <script>
       (function(){
-        var index = 0
-          , times = $('.times li')
-          , count = times.length
-          , delta = 0
-          , width = $('.times').width() / count
-          , sum = 0
-          , liWidth = 0;
-          , offsets = {}
-          
-        $('.times li').each(function() {
-          liWidth += $(this).outerWidth();
-        })
-        
-        $(document).on('mousewheel', function(e){ 
+        var index     = 0
+          , scroll    = $('.time-scroll')
+          , times     = scroll.find('li')
+          , count     = times.length
+          , delta     = 0
+          , middle    = $('.time-scroll').innerWidth()/2
+          , increment = .1
+
+        scroll.css({left:middle})
+
+        function precision( number , precision ){
+          var prec = Math.pow( 10 , precision );
+          return Math.round( number * prec ) / prec;
+        }        
+
+        $(document).on('mousewheel', function(e){
+
+          index += ((e.originalEvent.wheelDelta > 0 ? 1 : -1) * increment);
+
+          index = precision(index,2)
+
+          if (index <= 0) {
+            index = 0
+          }
+          else if (index >= count) {
+            index = count - 1
+          }
+
+          if (index % 1 == 0) {
+            var $li = times.eq(index);
+            times.removeClass('active')
+            $li.addClass('active')
+            scroll.css({
+              left: (index == count ? index : ($li.position().left * -1)) + middle - 25
+            })            
+          }
+
           e.preventDefault();
-          var newSum = sum - e.originalEvent.wheelDelta;
-          if (newSum > 0 || newSum < -liWidth) {
-            return;
-          };
-          sum = newSum;
-          $('.times').css({left: sum})
-          // if (sum >= width) {
-          //   sum = 0;
-          //   index += 1;
-          //   requestAnimationFrame(function(){
-          //     times.removeClass('active')
-          //     times.eq(index).addClass('active')
-          //   })
-          // } else if (sum <= -width) {
-          //   sum = 0;
-          //   index -= 1;
-          //   requestAnimationFrame(function(){
-          //     times.removeClass('active')
-          //     times.eq(index).addClass('active')
-          //   })
-          // }
           return false;
         })
       })();

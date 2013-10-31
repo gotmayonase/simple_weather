@@ -1,9 +1,3 @@
-var data;
-
-function onDataReceived(data){
-  $('.temp')
-}
-
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position){
