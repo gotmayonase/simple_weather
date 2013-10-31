@@ -24,7 +24,7 @@ canvas {
   font-family: 'Quicksand', sans-serif;
   font-size: 1.5em;
   text-align: center;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
   display: block
 }
 
@@ -33,15 +33,14 @@ canvas {
   letter-spacing: normal;
 }
 
-.timeContainer {
+.time-scroll {
 	position: fixed;
-	bottom: 10px;
+	bottom: 0;
 	left: 0;
 	right: 0;
 	overflow: hidden;
-	padding-top: 20px;
-	padding-bottom: 20px;
 	background: rgba(255,255,255,0.5);
+  padding: 20px 0;  
 }
 
 .times {
@@ -51,14 +50,21 @@ canvas {
   list-style: none;
 	width: 999em;
 	position: relative;
+-webkit-transition: all 0.2s ease-in-out;
+-moz-transition: all 0.2s ease-in-out;
+-o-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 }
 
 .times li {
-  display: inline-block;
+  width: 45px;
+  color: #ccc;
+  display: block;
+  float: left;
+  text-align: right;
   -webkit-transform: rotate(-50deg);
 }
 
 .times .active {
-  font-weight: bold;
-  color: red;
+  color: #333;
 }
