@@ -95,8 +95,8 @@
 	  times     = scroll.find('li');
 	  count     = times.length;
 	  delta     = 0;
-	  middle    = scroll.innerWidth()/2;
-	  increment = .1;
+	  middle    = $(window).width()/2;
+	  increment = .25;
 		scroll.css({left:middle})
 	}
 	
