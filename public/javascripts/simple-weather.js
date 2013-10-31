@@ -70,7 +70,13 @@
 	        hours = 12
 	        amPM = 'pm'
 	      }
-				var $li = $('<li>' + hours + ':00' + amPM +'</li>');
+				var $li;
+				if (index == 0) {
+					$li = $('<li class="active">' + hours + ':00' + amPM +'</li>');
+				} else {
+					$li = $('<li>' + hours + ':00' + amPM +'</li>');
+				};
+				
 				$li.data('temp', tempObject.temperature);
 				$li.data('precip', tempObject.precipProbability);
 				$li.data('summary', tempObject.summary);
@@ -104,10 +110,41 @@
 	  var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	  geocoder.geocode({'latLng': latlng}, function(results, status) {
 	    if (status == google.maps.GeocoderStatus.OK) {
-				console.log(results);
-	      if (results[1]) {
-	        $('.location').html(results[1].formatted_address)
-	      }
+
+				var itemStreet, itemCity, itemState, itemCountry, itemZip, itemSnumber;
+
+				// iterate through address_component array
+				$.each(results, function(i, result) {
+					$.each(result.address_components, function (i, address_component) {
+				    if (address_component.types[0] == "route"){
+			        itemRoute = address_component.long_name;
+				    }
+
+				    if (address_component.types[0] == "locality"){
+			        itemCity = address_component.long_name;
+				    }
+
+						if (address_component.types[0] == "administrative_area_level_1") {
+							itemState = address_component.short_name;
+						}
+
+				    if (address_component.types[0] == "country"){ 
+			        itemCountry = address_component.long_name;
+				    }
+
+				    if (address_component.types[0] == "postal_code_prefix"){ 
+			        itemZip = address_component.long_name;
+				    }
+
+				    if (address_component.types[0] == "street_number"){ 
+			        itemSnumber = address_component.long_name;
+				    }
+					});
+				})
+				if (itemState && itemCity) {
+					$('.location').html([itemCity, itemState].join(', '))
+				};
+				
 	    } else {
 	      alert("Geocoder failed due to: " + status);
 	    }
