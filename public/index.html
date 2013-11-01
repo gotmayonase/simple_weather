@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="/stylesheets/simple-weather.css">  
   </head>
   <body>
-    <img id="background" src="/images/cloudy.jpg" />
     <div class="pure-g-r">    
       <div class="pure-u-1 current">
         <span class="location"></span>
@@ -13,6 +12,7 @@
         <span class="condition"></span>
       </div>
     </div>
+    
     <div id="loading"></div>
     <div class="time-wrapper">
       <div class="time-scroll">
@@ -20,6 +20,9 @@
         </ol>
       </div>
     </div>
+    
+    <a href="#" id="pinButton"><img src="/images/pin.png" width="32px" height="32px"/></a>
+    
     <script src="/javascripts/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVGdgOJKBUM68fUxeK7UJLfy-Ninw-CaU&sensor=true"></script>
     <script src="/javascripts/simple-weather.js"></script>
