@@ -21,23 +21,23 @@ body.open {
 }
 
 body.partly-cloudy-day {
-	background: url(/images/partly-cloudy-day.jpg) no-repeat center;
+	background: url(/images/partly-cloudy-day.jpg) no-repeat;
 }
 
 body.partly-cloudy-night {
-	background: url(/images/partly-cloudy-night.jpg) no-repeat center;
+	background: url(/images/partly-cloudy-night.jpg) no-repeat;
 }
 
 body.clear-day {
-	background: url(/images/clear-day.jpg) no-repeat center;
+	background: url(/images/clear-day.jpg) no-repeat;
 }
 
 body.clear-night {
-	background: url(/images/clear-night.jpg) no-repeat center;
+	background: url(/images/clear-night.jpg) no-repeat;
 }
 
 body.cloudy {
-	background: url(/images/cloudy.jpg) no-repeat center;
+	background: url(/images/cloudy.jpg) no-repeat;
 }
 
 #background {
@@ -64,11 +64,7 @@ canvas {
 	margin-top: 50px;
 }
 
-.clear-night .current span {
-	color: white;
-}
-
-.clear-night .temperature span {
+.clear-night .current span, .clear-day .current span {
 	color: white;
 }
 
@@ -99,7 +95,6 @@ canvas {
 	bottom: 0;
 	left: 0;
 	right: 0;
-/*	background: rgba(160,160,160,0.5);*/
 	height: 80px;
 	overflow: none;
 }
@@ -129,7 +124,6 @@ transition: all 0.2s ease-in-out;
 .times .dayBreak {
 	color: #222;
 	font-weight: bold;
-/*	-webkit-transform: rotate(-90deg);*/
 	font-size: 1.5em;
 	text-align: right;
 }
@@ -138,6 +132,19 @@ transition: all 0.2s ease-in-out;
 .times .active {
   color: #333;
 	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.clear-night .times li, .partly-cloudy-night .times li, .clear-day .times li{
+	color: #ccc;
+}
+
+.clear-night .times .dayBreak, .partly-cloudy-night .times .dayBreak, .clear-day .times .dayBreak{
+	color: #eee;
+}
+
+.clear-night .times .active, .partly-cloudy-night .times .active, .clear-day .times .active {
+	color: #fff;
 }
 
 #pinButton {

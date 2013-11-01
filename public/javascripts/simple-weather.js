@@ -38,8 +38,22 @@
     return false;
   })
 
+	$(document).delegate('.times li', 'click', function(){
+		$li = $(this);
+		if ($li.is('.dayBreak')) {
+			return false;
+		};
+		index = times.index($li);
+		times.removeClass('active')
+    $li.addClass('active')
+		setWeather($li.data('temp'), $li.data('summary'), $li.data('icon'))
+		changeBackground();
+    scroll.css({
+      left: (index == count ? index : ($li.position().left * -1)) + middle - 25
+    })
+	})
+
 	function changeBackground() {
-		console.log('changingBackground');
 		$('body').attr('class', $('body').data('icon'));
 	}
 
@@ -75,6 +89,7 @@
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
 	    units = data.flags.units == 'us' ? 'F' : 'C';
 			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon);
+			changeBackground();
 			$('.times').html('');
 			var new_items = [];
 			var day;
@@ -82,24 +97,24 @@
 	      var date = new Date(tempObject.time * 1000);
 				var newDay = mapToDay(date);
 	      var hours = date.getHours();
-	      var amPM = 'am';
+	      var amPM = 'AM';
 	      if(hours > 12){
 	        hours = hours - 12;
-	        amPM = 'pm'
+	        amPM = 'PM'
 	      } else if(hours == 0) {
 	        hours = 12
 	      } else if(hours == 12){
 	        hours = 12
-	        amPM = 'pm'
+	        amPM = 'PM'
 	      }
 				var $li;
 				if (day && day != newDay) {
 					new_items.push('<li class="dayBreak">' + newDay + '</li>')
 				};
 				if (index == 0) {
-					$li = $('<li class="active">' + hours + ':00' + amPM +'</li>');
+					$li = $('<li class="active">' + hours + amPM +'</li>');
 				} else {
-					$li = $('<li>' + hours + ':00' + amPM +'</li>');
+					$li = $('<li>' + hours + amPM +'</li>');
 				};
 				
 				$li.data('temp', tempObject.temperature);
