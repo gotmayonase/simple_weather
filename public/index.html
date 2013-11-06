@@ -5,23 +5,43 @@
     <link rel="stylesheet" href="/stylesheets/simple-weather.css">  
   </head>
   <body>
-    <div class="pure-g-r">    
-      <div class="pure-u-1 current">
-        <span class="location"></span>
-        <span class="temperature"></span>
-        <span class="condition"></span>
-      </div>
+    <img src="/images/rain.jpg" class="weatherBG rain" width="100%" />
+    <img src="/images/clear-day.jpg" class="weatherBG clear-day" width="100%" />
+    <img src="/images/clear-night.jpg" class="weatherBG clear-night" width="100%" />
+    <img src="/images/cloudy.jpg" class="weatherBG cloudy" width="100%" />
+    <img src="/images/partly-cloudy-day.jpg" class="weatherBG partly-cloudy-day" width="100%" />
+    <img src="/images/partly-cloudy-night.jpg" class="weatherBG partly-cloudy-night" width="100%" />
+    
+    <div class="settings">
+      <h2>Location</h2>
+      <form class="pure-form">
+        <fieldset>        
+          <input type="text" id="searchField" placeholder="Enter location">
+          <button type="submit" class="pure-button">Go</button>
+        </fieldset>
+      </form>      
     </div>
     
-    <div id="loading"></div>
-    <div class="time-wrapper">
-      <div class="time-scroll">
-        <ol class="times">
-        </ol>
+    <main role="main">
+      <div class="pure-g-r">    
+        <div class="pure-u-1 current">
+          <div class="bg"></div>
+          <span class="location"></span>
+          <span class="temperature"></span>
+          <span class="condition"></span>
+        </div>
       </div>
-    </div>
     
-    <a href="#" id="pinButton"><img src="/images/pin.png" width="32px" height="32px"/></a>
+      <div id="loading"></div>
+      <div class="time-wrapper">
+        <div class="time-scroll">
+          <ol class="times">
+          </ol>
+        </div>
+      </div>
+    
+      <a href="#" id="pinButton"></a>
+    </main>
     
     <script src="/javascripts/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVGdgOJKBUM68fUxeK7UJLfy-Ninw-CaU&sensor=true"></script>

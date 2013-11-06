@@ -54,7 +54,12 @@
 	})
 
 	function changeBackground() {
-		$('body').attr('class', $('body').data('icon'));
+		var icon = $('body').data('icon');
+		if($('body').attr('class') != icon) {
+			$('body').attr('class', icon);
+			$('.weatherBG').removeClass('active')			
+			$('.weatherBG.' + icon).addClass('active');
+		}
 	}
 
 	function getLocation() {
@@ -63,7 +68,8 @@
 	      gotLocation(position.coords.latitude,position.coords.longitude)
 	      geocodePosition(position);
 	    }, function(error){
-	      gotLocation(32,100)
+	      gotLocation(32.7758,-96.7967)
+				$('.location').html('Dallas, TX')
 	      console.log(error);
 	    });
 	  }
@@ -120,7 +126,6 @@
 				$li.data('temp', tempObject.temperature);
 				$li.data('precip', tempObject.precipProbability);
 				$li.data('summary', tempObject.summary);
-				console.log(tempObject.icon);
 				$li.data('icon', tempObject.icon);
 				new_items.push($li);
 				day = newDay;
@@ -153,45 +158,47 @@
 	  var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	  geocoder.geocode({'latLng': latlng}, function(results, status) {
 	    if (status == google.maps.GeocoderStatus.OK) {
-
-				var itemStreet, itemCity, itemState, itemCountry, itemZip, itemSnumber;
-
-				// iterate through address_component array
-				$.each(results, function(i, result) {
-					$.each(result.address_components, function (i, address_component) {
-				    if (address_component.types[0] == "route"){
-			        itemRoute = address_component.long_name;
-				    }
-
-				    if (address_component.types[0] == "locality"){
-			        itemCity = address_component.long_name;
-				    }
-
-						if (address_component.types[0] == "administrative_area_level_1") {
-							itemState = address_component.short_name;
-						}
-
-				    if (address_component.types[0] == "country"){ 
-			        itemCountry = address_component.long_name;
-				    }
-
-				    if (address_component.types[0] == "postal_code_prefix"){ 
-			        itemZip = address_component.long_name;
-				    }
-
-				    if (address_component.types[0] == "street_number"){ 
-			        itemSnumber = address_component.long_name;
-				    }
-					});
-				})
-				if (itemState && itemCity) {
-					$('.location').html([itemCity, itemState].join(', '))
-				};
-				
+				updateLocation(results);
 	    } else {
 	      alert("Geocoder failed due to: " + status);
 	    }
 	  });
+	}
+	
+	function updateLocation(geocodeResults){
+		var itemStreet, itemCity, itemState, itemCountry, itemZip, itemSnumber;
+
+		// iterate through address_component array
+		$.each(geocodeResults, function(i, result) {
+			$.each(result.address_components, function (i, address_component) {
+		    if (address_component.types[0] == "route"){
+	        itemRoute = address_component.long_name;
+		    }
+
+		    if (address_component.types[0] == "locality"){
+	        itemCity = address_component.long_name;
+		    }
+
+				if (address_component.types[0] == "administrative_area_level_1") {
+					itemState = address_component.short_name;
+				}
+
+		    if (address_component.types[0] == "country"){ 
+	        itemCountry = address_component.long_name;
+		    }
+
+		    if (address_component.types[0] == "postal_code_prefix"){ 
+	        itemZip = address_component.long_name;
+		    }
+
+		    if (address_component.types[0] == "street_number"){ 
+	        itemSnumber = address_component.long_name;
+		    }
+			});
+		})
+		if (itemState && itemCity) {
+			$('.location').html([itemCity, itemState].join(', '))
+		};
 	}
 	
 	$(function(){
@@ -201,8 +208,8 @@
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        position = results[0].geometry.location;
-	        gotLocation(position.lb, position.mb);
-	        $('h2').html(results[0].formatted_address);
+	        gotLocation(position.lat(), position.lng());
+					updateLocation(results);
 	      } else {
 	        console.log("Geocode was not successful for the following reason: " + status);
 	        console.log(results);
@@ -222,6 +229,10 @@
 			$('body').toggleClass('open');
 			e.preventDefault();
 		})
+		
+		$('#pinButton').click(function(){
+	    $(this).toggleClass('open')
+	  })
 	});
 	
 })();

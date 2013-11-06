@@ -9,35 +9,66 @@
   src: url(/fonts/Quicksand-Bold.ttf);
 }
 
-body {
-/*  padding-top:50px;*/
+body, html, main, .settings { height: 100%;}
+
+.settings {
+  font-family: 'Quicksand';  
+  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;  
+  z-index:1;
+  background: #2c3e50;
+  color:#fff;
+  padding:0 20px;
+  box-sizing: border-box;
+  -webkit-transition: all 0.5s;
+  -webkit-transform: translate3d(-100%, 0, 0);
 }
 
-body.open {
-	transform: translate(-100px, 0px);
-	-ms-transform: translate(-100px, 0px); /* IE 9 */
-	-webkit-transform: translate(-100px, 0px); /* Safari and Chrome */
-	-webkit-transition: all .5 ease-in;
+.settings h2 {
+  font-weight: normal;
 }
 
-body.partly-cloudy-day {
-	background: url(/images/partly-cloudy-day.jpg) no-repeat;
+.settings input[type='text'] {
+  width: 100%;
+  margin: 0 0 10px;
+  font-size: 1em;
+  background: transparent;
+  border: 0;
+  border-bottom: solid 1px #fff;
+  border-radius: 0;  
+  box-shadow: none;
 }
 
-body.partly-cloudy-night {
-	background: url(/images/partly-cloudy-night.jpg) no-repeat;
+.settings button {
+  float: right;
 }
 
-body.clear-day {
-	background: url(/images/clear-day.jpg) no-repeat;
+main {
+  -webkit-transition: all 0.5s;
 }
 
-body.clear-night {
-	background: url(/images/clear-night.jpg) no-repeat;
+.open main {
+  -webkit-transform: translate3d(300px, 0, 0); 
 }
 
-body.cloudy {
-	background: url(/images/cloudy.jpg) no-repeat;
+.open .settings {
+  -webkit-transform: translate3d(0, 0, 0); 
+
+}
+.weatherBG {
+	z-index:-9999;
+	position: fixed;
+	top:0; left:0; bottom:0; right:0;
+	visibility: hidden;
+	opacity: 0;
+  -webkit-transition: all 0.5s;	
+}
+
+.weatherBG.active {
+	visibility: visible;
+	opacity: 1;
 }
 
 #background {
@@ -56,16 +87,12 @@ body.cloudy {
 	background: url(/images/cloud-loading.png) no-repeat center;
 }
 
-canvas {
-	z-index: -998;
-}
-
 .current {
-	margin-top: 50px;
-}
-
-.clear-night .current span, .clear-day .current span {
-	color: white;
+	-webkit-transition: all 0.3s;
+	width: 300px;
+	margin: 50px auto 0px;
+	padding: 20px;
+	border-radius: 10px;
 }
 
 .current span{  
@@ -73,7 +100,16 @@ canvas {
   font-size: 1.5em;
   text-align: center;
   letter-spacing: -2px;
-  display: block
+  display: block;
+	color: white;
+}
+
+.rain .current {
+	background: rgba(255,255,255,0.7);
+}
+
+.rain .current span {
+	color: #2c3e50;
 }
 
 .current .temperature {
@@ -91,12 +127,17 @@ canvas {
 }
 
 .time-wrapper {
+	-webkit-transition: all 0.5s;
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 80px;
 	overflow: none;
+}
+
+.rain .time-wrapper {
+	background: rgba(255,255,255,0.7);
 }
 
 .times {
@@ -122,7 +163,7 @@ transition: all 0.2s ease-in-out;
 }
 
 .times .dayBreak {
-	color: #222;
+	color: #eee;
 	font-weight: bold;
 	font-size: 1.5em;
 	text-align: right;
@@ -130,27 +171,27 @@ transition: all 0.2s ease-in-out;
 
 
 .times .active {
-  color: #333;
+  color: #fff;
 	font-weight: bold;
 	font-size: 1.2em;
 }
 
-.clear-night .times li, .partly-cloudy-night .times li, .clear-day .times li{
-	color: #ccc;
-}
-
-.clear-night .times .dayBreak, .partly-cloudy-night .times .dayBreak, .clear-day .times .dayBreak{
-	color: #eee;
-}
-
-.clear-night .times .active, .partly-cloudy-night .times .active, .clear-day .times .active {
-	color: #fff;
+.rain .times li {
+	color: #2c3e50;
 }
 
 #pinButton {
 	position: absolute;
-	right: 0;
+	left: 0;
 	top: 10px;
 	display: block;
-	opacity: 0.3;
+	opacity: 0.4;
+	width: 32px;
+	height: 32px;
+	background: url(/images/pin.png) no-repeat;
+	background-size: 100%;
+}
+
+.rain #pinButton, .clear-night #pinButton, .partly-cloudy-night #pinButton {
+	-webkit-filter: invert(100%);
 }
