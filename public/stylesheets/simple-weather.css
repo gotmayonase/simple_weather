@@ -231,3 +231,11 @@ transition: all 0.2s ease-in-out;
 .open #pinButton svg {
 	-webkit-transform: rotate(180deg);	
 }
+
+img {
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
