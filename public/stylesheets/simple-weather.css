@@ -182,22 +182,22 @@ transition: all 0.2s ease-in-out;
 
 #pinButton {
 	position: absolute;
-	left: 10px;
+	left: 0px;
 	top: 10px;
 	display: block;
 	background: #2c3e50;
-	padding:3px 5px 0;
-	border-radius: 5px;
+	padding:10px 10px 7px;
+	border-radius: 0 5px 5px 0;
 }
 
 #pinButton svg {
 		-webkit-transition: all .5s;
-	-webkit-transform: rotate(360deg);	
+	-webkit-transform: rotate(0deg);	
 
 }
 
 #pinButton.open svg {
-	-webkit-transform: rotate(0deg);	
+	-webkit-transform: rotate(360deg);	
 }
 
 .rain #pinButton, .clear-night #pinButton, .partly-cloudy-night #pinButton {
