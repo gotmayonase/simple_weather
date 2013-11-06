@@ -72,38 +72,6 @@ main {
 	opacity: 1;
 }
 
-.weatherBG.rain {
-	background: url(/images/rain.jpg);
-}
-
-.weatherBG.snow {
-	background: url(/images/snow.jpg);
-}
-
-.weatherBG.wind {
-	background: url(/images/wind.jpg);
-}
-
-.weatherBG.cloudy {
-	background: url(/images/cloudy.jpg);
-}
-
-.weatherBG.clear-day {
-	background: url(/images/clear-day.jpg);
-}
-
-.weatherBG.clear-night {
-	background: url(/images/clear-night.jpg);
-}
-
-.weatherBG.partly-cloudy-day {
-	background: url(/images/partly-cloudy-day.jpg);
-}
-
-.weatherBG.partly-cloudy-night {
-	background: url(/images/partly-cloudy-day.jpg);
-}
-
 #background {
 	position: fixed;
 	z-index: -999;
@@ -117,6 +85,13 @@ main {
 	left: 0;
 	right: 0;
 	text-align: center
+}
+
+#loading span {
+	font-family: 'Quicksand';
+	color: #fff;
+	display: block;
+	margin-bottom: 2px;
 }
 
 .current {
@@ -233,9 +208,9 @@ transition: all 0.2s ease-in-out;
 }
 
 img {
-  width: 100%;
-  min-height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+	width: 100%;
+	min-height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
