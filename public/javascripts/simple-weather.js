@@ -198,6 +198,8 @@
 		})
 		if (itemState && itemCity) {
 			$('.location').html([itemCity, itemState].join(', '))
+		} else if(itemState) {
+			$('.location').html(itemState);
 		};
 	}
 	

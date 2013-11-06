@@ -191,7 +191,7 @@ transition: all 0.2s ease-in-out;
 }
 
 #pinButton svg {
-		-webkit-transition: all .5s;
+	-webkit-transition: all .5s;
 	-webkit-transform: rotate(360deg);	
 
 }
@@ -200,6 +200,6 @@ transition: all 0.2s ease-in-out;
 	-webkit-transform: rotate(0deg);	
 }
 
-.rain #pinButton, .clear-night #pinButton, .partly-cloudy-night #pinButton {
+.rain #pinButton, .clear-night #pinButton, .partly-cloudy-night #pinButton, .clear-day #pinButton {
 	-webkit-filter: invert(100%);
 }
