@@ -199,7 +199,3 @@ transition: all 0.2s ease-in-out;
 #pinButton.open svg {
 	-webkit-transform: rotate(360deg);	
 }
-
-.rain #pinButton, .clear-night #pinButton, .partly-cloudy-night #pinButton {
-	-webkit-filter: invert(100%);
-}
