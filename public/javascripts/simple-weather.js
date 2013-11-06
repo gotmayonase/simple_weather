@@ -244,4 +244,6 @@
 		})
 	});
 	
+
+	$(window).on('resize', refreshDefaults)
 })();
