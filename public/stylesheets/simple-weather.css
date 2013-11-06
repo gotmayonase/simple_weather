@@ -196,6 +196,6 @@ transition: all 0.2s ease-in-out;
 	-webkit-transform: rotate(0deg);
 }
 
-#pinButton.open svg {
+.open #pinButton svg {
 	-webkit-transform: rotate(180deg);	
 }

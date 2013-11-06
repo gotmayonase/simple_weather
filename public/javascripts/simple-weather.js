@@ -233,14 +233,15 @@
 	  });
 	
 		$('#pinButton').click(function(e){
-			$('pinButton').toggleClass('open')
 			$('body').toggleClass('open');
 			e.preventDefault();
 		})
-		
-		$('#pinButton').click(function(){
-	    $(this).toggleClass('open')
-	  })
+	
+		$('#currentLocation').click(function(){
+			$('body').removeClass('open');
+			$('#loading').show();
+			getLocation();
+		})
 	});
 	
 })();
