@@ -39,6 +39,7 @@ body, html, main, .settings { height: 100%;}
   border-bottom: solid 1px #fff;
   border-radius: 0;  
   box-shadow: none;
+  color:#fff;
 }
 
 .settings button {
@@ -80,11 +81,10 @@ main {
 
 #loading {
 	position: absolute;
-	top: 0;
+	top: 40%;
 	left: 0;
-	bottom: 0;
 	right: 0;
-	background: url(/images/cloud-loading.png) no-repeat center;
+	text-align: center
 }
 
 .current {
@@ -182,14 +182,22 @@ transition: all 0.2s ease-in-out;
 
 #pinButton {
 	position: absolute;
-	left: 0;
+	left: 10px;
 	top: 10px;
 	display: block;
-	opacity: 0.4;
-	width: 32px;
-	height: 32px;
-	background: url(/images/pin.png) no-repeat;
-	background-size: 100%;
+	background: #2c3e50;
+	padding:3px 5px 0;
+	border-radius: 5px;
+}
+
+#pinButton svg {
+		-webkit-transition: all .5s;
+	-webkit-transform: rotate(360deg);	
+
+}
+
+#pinButton.open svg {
+	-webkit-transform: rotate(0deg);	
 }
 
 .rain #pinButton, .clear-night #pinButton, .partly-cloudy-night #pinButton {

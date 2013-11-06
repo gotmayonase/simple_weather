@@ -225,7 +225,7 @@
 	  });
 	
 		$('#pinButton').click(function(e){
-			console.log('here');
+			$('pinButton').toggleClass('open')
 			$('body').toggleClass('open');
 			e.preventDefault();
 		})
