@@ -21,7 +21,7 @@ body, html, main, .settings { height: 100%;}
 }
 
 .weatherBG.rain {
-  background:url('/images/wind.jpg') no-repeat 0 0 fixed;
+  background:url('/images/rain.jpg') no-repeat 0 0 fixed;
 }
 
 .weatherBG.clear-day {
