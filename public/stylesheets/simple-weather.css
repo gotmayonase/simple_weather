@@ -42,7 +42,7 @@ body, html, main, .settings { height: 100%;}
   color:#fff;
 }
 
-.settings button {
+.settings .button-group {
   float: right;
 }
 
@@ -70,6 +70,38 @@ main {
 .weatherBG.active {
 	visibility: visible;
 	opacity: 1;
+}
+
+.weatherBG.rain {
+	background: url(/images/rain.jpg);
+}
+
+.weatherBG.snow {
+	background: url(/images/snow.jpg);
+}
+
+.weatherBG.wind {
+	background: url(/images/wind.jpg);
+}
+
+.weatherBG.cloudy {
+	background: url(/images/cloudy.jpg);
+}
+
+.weatherBG.clear-day {
+	background: url(/images/clear-day.jpg);
+}
+
+.weatherBG.clear-night {
+	background: url(/images/clear-night.jpg);
+}
+
+.weatherBG.partly-cloudy-day {
+	background: url(/images/partly-cloudy-day.jpg);
+}
+
+.weatherBG.partly-cloudy-night {
+	background: url(/images/partly-cloudy-day.jpg);
 }
 
 #background {
