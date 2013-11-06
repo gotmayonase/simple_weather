@@ -77,7 +77,7 @@
 	      gotLocation(32.7758,-96.7967)
 				$('.location').html('Dallas, TX')
 	      console.log(error);
-	    }, {timeout: 1000});
+	    }, {timeout: 10000});
 	  }
 	  else {
 	    console.log('not locating')
