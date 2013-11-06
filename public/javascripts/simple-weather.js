@@ -1,6 +1,12 @@
 (function(){
   var index, scroll, times, count, delta, middle, increment, units, bgTimer;
 	refreshDefaults();
+	
+	function log(message) {
+		$.post('/log', { message: message }, function(data) {
+			console.log(data);
+		})
+	}
 
   function precision( number , precision ){
     var prec = Math.pow( 10 , precision );
@@ -76,11 +82,11 @@
 	    }, function(error){
 	      gotLocation(32.7758,-96.7967)
 				$('.location').html('Dallas, TX')
-	      console.log(error);
+	      log('getLocation failed: ' + error);
 	    }, {timeout: 10000});
 	  }
 	  else {
-	    console.log('not locating')
+	    log('navigator.geolocation was false');
 	  }
 	}
 	
@@ -98,7 +104,6 @@
 
 	function gotLocation(latitude, longitude) {
 		$('#loading').show();
-		console.log('gotLocation');
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
 	    units = data.flags.units == 'us' ? 'F' : 'C';
 			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon);
@@ -226,8 +231,8 @@
 					$('.error').html('')
 	      } else {
 					$('.error').html('No results found :(')
-	        console.log("Geocode was not successful for the following reason: " + status);
-	        console.log(results);
+	        log("Geocode was not successful for the following reason: " + status);
+	        log(results);
 	      }
 	    });
 	    return false;

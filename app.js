@@ -7,6 +7,7 @@ forecast = new Forecast({APIKey: APIKEY});
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.logger());
+app.use(express.bodyParser());
 
 app.get('/forecast/:latitude,:longitude', function(request,response) {
 	forecast.get(request.params.latitude, request.params.longitude, { units: 'auto' },function(err, res, data) {
@@ -16,6 +17,13 @@ app.get('/forecast/:latitude,:longitude', function(request,response) {
 		response.send(data);
 	})
 });
+
+
+app.post('/log', function(request, response) {
+	var message = request.body.message;
+	console.log(request.ip + ' - - [' + (new Date()).toUTCString() + '] **Client Message**: ' + message);
+});
+
 var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Listening on port ' + port);
