@@ -67,7 +67,9 @@ body, html, main, .settings { height: 100%;}
   padding:0 20px;
   box-sizing: border-box;
   -webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
   -webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
 }
 
 .settings h2 {
@@ -92,15 +94,18 @@ body, html, main, .settings { height: 100%;}
 
 main {
   -webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	position: relative;
 }
 
 .open main {
   -webkit-transform: translate3d(300px, 0, 0); 
+  -moz-transform: translate3d(300px, 0, 0); 
 }
 
 .open .settings {
   -webkit-transform: translate3d(0, 0, 0); 
-
+  -moz-transform: translate3d(0, 0, 0); 
 }
 .weatherBG {
 	z-index:-9999;
@@ -109,6 +114,7 @@ main {
 	visibility: hidden;
 	opacity: 0;
   -webkit-transition: all 0.5s;	
+  -moz-transition: all 0.5s;	
 }
 
 .weatherBG.active {
@@ -140,10 +146,12 @@ main {
 
 .current {
 	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
 	width: 300px;
 	margin: 50px auto 0px;
 	padding: 20px;
 	border-radius: 10px;
+	display: block;
 }
 
 .current span{  
@@ -179,6 +187,7 @@ main {
 
 .time-wrapper {
 	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -211,6 +220,7 @@ transition: all 0.2s ease-in-out;
   float: left;
   text-align: right;
   -webkit-transform: rotate(-50deg);
+  -moz-transform: rotate(-50deg);
 	cursor: pointer;
 }
 
@@ -244,9 +254,12 @@ transition: all 0.2s ease-in-out;
 
 #pinButton svg {
 	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
 	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
 }
 
 .open #pinButton svg {
 	-webkit-transform: rotate(180deg);	
+	-moz-transform: rotate(180deg);	
 }

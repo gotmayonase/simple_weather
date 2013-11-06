@@ -6,11 +6,11 @@
     var prec = Math.pow( 10 , precision );
     return Math.round( number * prec ) / prec;
   }
-
-  $(document).on('mousewheel', function(e){
+  
+  function scrollTimes(delta) {
 		clearTimeout(bgTimer);
 		bgTimer = setTimeout(changeBackground, 500);
-    index += ((e.originalEvent.wheelDelta > 0 ? 1 : -1) * increment);
+    index += ((delta > 0 ? 1 : -1) * increment);
 
     index = precision(index,2)
 
@@ -33,9 +33,15 @@
         left: (index == count ? index : ($li.position().left * -1)) + middle - 25
       })            
     }
+  }
 
-    e.preventDefault();
-    return false;
+  $(document).on('mousewheel wheel', function(e){
+    var delta = e.originalEvent.deltaY? e.originalEvent.deltaY*(-120) : e.originalEvent.wheelDelta
+    scrollTimes(delta);
+    if (e.preventDefault)
+      e.preventDefault();
+    else
+      return false;
   })
 
 	$(document).delegate('.times li', 'click', function(){
@@ -71,7 +77,7 @@
 	      gotLocation(32.7758,-96.7967)
 				$('.location').html('Dallas, TX')
 	      console.log(error);
-	    });
+	    }, {timeout: 1000});
 	  }
 	  else {
 	    console.log('not locating')
@@ -92,6 +98,7 @@
 
 	function gotLocation(latitude, longitude) {
 		$('#loading').show();
+		console.log('gotLocation');
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
 	    units = data.flags.units == 'us' ? 'F' : 'C';
 			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon);
