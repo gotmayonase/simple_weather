@@ -166,11 +166,12 @@
 	}
 	
 	function updateLocation(geocodeResults){
-		var itemStreet, itemCity, itemState, itemCountry, itemZip, itemSnumber;
+		var itemStreet, itemCity, itemStateShort, itemStateLong, itemCountry, itemZip, itemSnumber;
 
 		// iterate through address_component array
 		$.each(geocodeResults, function(i, result) {
 			$.each(result.address_components, function (i, address_component) {
+				
 		    if (address_component.types[0] == "route"){
 	        itemRoute = address_component.long_name;
 		    }
@@ -180,7 +181,8 @@
 		    }
 
 				if (address_component.types[0] == "administrative_area_level_1") {
-					itemState = address_component.short_name;
+					itemStateShort = address_component.short_name;
+					itemStateLong = address_component.long_name;
 				}
 
 		    if (address_component.types[0] == "country"){ 
@@ -196,10 +198,12 @@
 		    }
 			});
 		})
-		if (itemState && itemCity) {
-			$('.location').html([itemCity, itemState].join(', '))
-		} else if(itemState) {
-			$('.location').html(itemState);
+		if (itemStateShort && itemCity) {
+			$('.location').html([itemCity, itemStateShort].join(', '))
+		} else if(itemStateLong) {
+			$('.location').html(itemStateLong);
+		} else {
+			$('.location').html(geocodeResults[0].formatted_address)
 		};
 	}
 	
@@ -212,7 +216,9 @@
 	        position = results[0].geometry.location;
 	        gotLocation(position.lat(), position.lng());
 					updateLocation(results);
+					$('.error').html('')
 	      } else {
+					$('.error').html('No results found :(')
 	        console.log("Geocode was not successful for the following reason: " + status);
 	        console.log(results);
 	      }
