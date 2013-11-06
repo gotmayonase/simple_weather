@@ -243,4 +243,6 @@
 	  })
 	});
 	
+
+	$(window).on('resize', refreshDefaults)
 })();
