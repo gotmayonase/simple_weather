@@ -12,7 +12,7 @@ var backupData;
 forecast = new Forecast({APIKey: APIKEY});
 
 app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
+// app.use(express.logger());
 app.use(express.bodyParser());
 
 app.get('/forecast/:latitude,:longitude', function(request,response) {
