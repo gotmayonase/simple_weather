@@ -32,16 +32,20 @@
 			if ($li.is('.dayBreak')) {
 				$li = times.eq(index + 1);
 			};
-      times.removeClass('active')
-      $li.addClass('active')
-			setWeather($li.data('temp'), $li.data('summary'), $li.data('icon'))
-      scroll.css({
-        left: (index == count ? index : ($li.position().left * -1)) + middle - 25
-      })            
+      selectTime(index, $li, 0);
     }
   }
+  
+  function selectTime(index, $li, animationSpeed) {
+    times.removeClass('active');
+    $li.addClass('active');
+		setWeather($li.data('temp'), $li.data('summary'), $li.data('icon'), $li.data('timeClass'));
+		scroll.animate({
+      left: (index == count ? index : ($li.position().left * -1)) + middle - 25
+    }, animationSpeed)
+  }
 
-  $(document).on('mousewheel wheel', function(e){
+  $(document).on('mousewheel wheel swipe', function(e){
     var delta = e.originalEvent.deltaY? e.originalEvent.deltaY*(-120) : e.originalEvent.wheelDelta
     scrollTimes(delta);
     if (e.preventDefault)
@@ -56,21 +60,15 @@
 			return false;
 		};
 		index = times.index($li);
-		times.removeClass('active')
-    $li.addClass('active')
-		setWeather($li.data('temp'), $li.data('summary'), $li.data('icon'))
-		changeBackground();
-    scroll.css({
-      left: (index == count ? index : ($li.position().left * -1)) + middle - 25
-    })
+    selectTime(index, $li, 400);
+    changeBackground();
 	})
 
 	function changeBackground() {
 		var icon = $('body').data('icon');
 		if($('body').attr('class') != icon) {
-			$('body').attr('class', icon);
-			$('.weatherBG').removeClass('active')			
-			$('.weatherBG.' + icon).addClass('active');
+		  var bodyClass = icon + ' ' + $('body').data('timeClass');
+			$('body').attr('class', bodyClass);
 		}
 	}
 
@@ -104,41 +102,56 @@
 
 	function gotLocation(latitude, longitude) {
 		$('#loading').show();
+	  fetchForecast(latitude, longitude);
+	}
+	
+	function timeClass(time, sunrise, sunset) {
+	  return (time >= sunrise && time <= sunset ? 'day' : 'night');
+	}
+	
+	function convertMilitaryHoursToSaneHourString(hours) {
+	  var amPM = 'AM';
+    if(hours > 12){
+      hours = hours - 12;
+      amPM = 'PM'
+    } else if(hours == 0) {
+      hours = 12
+    } else if(hours == 12){
+      hours = 12
+      amPM = 'PM'
+    }
+    return hours + amPM;
+	}
+	
+	function fetchForecast(latitude, longitude) {
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
 	    units = data.flags.units == 'us' ? 'F' : 'C';
-			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon);
+	    var dayIndexStart = new Date(data.currently.time * 1000).getDay(), dayIndex = 0;
+	    var currentSunrise = data.daily.data[dayIndex].sunriseTime, currentSunset = data.daily.data[dayIndex].sunsetTime;
+			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon, timeClass(data.currently.time, currentSunrise, currentSunset));
 			changeBackground();
 			$('.times').html('');
-			var new_items = [];
-			var day;
+			var new_items = [], day;
 	    $.each(data.hourly.data, function(index, tempObject) {
 	      var date = new Date(tempObject.time * 1000);
 				var newDay = mapToDay(date);
-	      var hours = date.getHours();
-	      var amPM = 'AM';
-	      if(hours > 12){
-	        hours = hours - 12;
-	        amPM = 'PM'
-	      } else if(hours == 0) {
-	        hours = 12
-	      } else if(hours == 12){
-	        hours = 12
-	        amPM = 'PM'
-	      }
+	      var hoursString = convertMilitaryHoursToSaneHourString(date.getHours());
 				var $li;
 				if (day && day != newDay) {
 					new_items.push('<li class="dayBreak">' + newDay + '</li>')
-				};
-				if (index == 0) {
-					$li = $('<li class="active">' + hours + amPM +'</li>');
-				} else {
-					$li = $('<li>' + hours + amPM +'</li>');
+					dayIndex += 1;
+					currentSunrise = data.daily.data[dayIndex].sunriseTime;
+					currentSunset = data.daily.data[dayIndex].sunsetTime;
 				};
 				
+				$li = $('<li>' + hoursString +'</li>');
 				$li.data('temp', tempObject.temperature);
 				$li.data('precip', tempObject.precipProbability);
 				$li.data('summary', tempObject.summary);
 				$li.data('icon', tempObject.icon);
+        $li.data('timeClass', timeClass(tempObject.time, currentSunrise, currentSunset))
+        index == 0 &&	$li.addClass('active');
+        
 				new_items.push($li);
 				day = newDay;
 	    });
@@ -159,10 +172,12 @@
 		scroll.css({left:middle})
 	}
 	
-	function setWeather(temp, condition, icon) {
+	function setWeather(temp, condition, icon, timeClass) {
 		$('.temperature').html([parseInt(temp, 10),'&deg;',units].join(''))
     $('.condition').html(condition)
+    icon = icon.replace(/-(day|night)/, '');
 		$('body').data('icon', icon);
+    $('body').data('timeClass', timeClass);
 	}
 
 	function geocodePosition(position) {
@@ -255,7 +270,6 @@
 			getLocation();
 		})
 	});
-	
 
 	$(window).on('resize', refreshDefaults)
 })();

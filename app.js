@@ -13,8 +13,9 @@ app.get('/forecast/:latitude,:longitude', function(request,response) {
 	forecast.get(request.params.latitude, request.params.longitude, { units: 'auto' },function(err, res, data) {
 		if (err) {
 			response.send(backupData);
-		};
-		response.send(data);
+		} else {
+		  response.send(data);
+		}
 	})
 });
 
