@@ -1,3 +1,9 @@
+if(process.env.NODETIME_ACCOUNT_KEY) {
+  require('nodetime').profile({
+    accountKey: process.env.NODETIME_ACCOUNT_KEY,
+    appName: 'Simple Weather' // optional
+  });
+}
 var APIKEY = 'f54e20e4a9969502845b541885b4165b'
 var express = require('express');
 var Forecast = require('forecast.io');

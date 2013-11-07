@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "express": "3.4.x",
-		"forecast.io": "0.0.x"
+		"forecast.io": "0.0.x",
+		"nodetime": "0.8.x"
   }
 }
