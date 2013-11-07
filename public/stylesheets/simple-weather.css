@@ -35,6 +35,7 @@ body, html, main, .settings { height: 100%;}
 	right:0;
 }
 
+/*ICONS*/
 .weather-icon {
   font-family: 'Weather';
   font-size: 55px;
@@ -43,6 +44,24 @@ body, html, main, .settings { height: 100%;}
 .weather-icon.rain:before {
   content: '5';
 }
+
+.weather-icon.sun:before {
+  content: '1';
+}
+
+.weather-icon.moon:before {
+  content: '6';
+}
+
+.weather-icon.lightning:before {
+  content: '4';
+}
+
+.weather-icon.clouds:before {
+  content: '3';
+}
+
+/*END ICONS*/
 
 .settings {
   font-family: 'Quicksand';  
