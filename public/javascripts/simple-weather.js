@@ -14,8 +14,6 @@
   }
   
   function scrollTimes(delta) {
-		clearTimeout(bgTimer);
-		bgTimer = setTimeout(changeBackground, 500);
     index += ((delta > 0 ? 1 : -1) * increment);
 
     index = precision(index,2)
@@ -29,11 +27,12 @@
 
     if (index % 1 == 0) {
       var $li = times.eq(index);
-			if ($li.is('.dayBreak')) {
+			if ($li.is('.dayBreak,.sunset,.sunrise')) {
 				$li = times.eq(index + 1);
 			};
       selectTime(index, $li, 0);
     }
+    changeBackground();
   }
   
   function selectTime(index, $li, animationSpeed) {
@@ -106,7 +105,8 @@
 	}
 	
 	function timeClass(time, sunrise, sunset) {
-	  return (time >= sunrise && time <= sunset ? 'day' : 'night');
+	  var _class = time >= sunrise && time <= sunset ? 'day' : 'night';
+	  return _class;
 	}
 	
 	function convertMilitaryHoursToSaneHourString(hours) {
@@ -131,7 +131,7 @@
 			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon, timeClass(data.currently.time, currentSunrise, currentSunset));
 			changeBackground();
 			$('.times').html('');
-			var new_items = [], day;
+			var new_items = [], day, prevTimeClass;
 	    $.each(data.hourly.data, function(index, tempObject) {
 	      var date = new Date(tempObject.time * 1000);
 				var newDay = mapToDay(date);
@@ -149,10 +149,16 @@
 				$li.data('precip', tempObject.precipProbability);
 				$li.data('summary', tempObject.summary);
 				$li.data('icon', tempObject.icon);
-        $li.data('timeClass', timeClass(tempObject.time, currentSunrise, currentSunset))
+				var time = tempObject.time;
+        $li.data('timeClass', timeClass(time, currentSunrise, currentSunset));
         index == 0 &&	$li.addClass('active');
         
 				new_items.push($li);
+				if(tempObject.time < currentSunrise && time+3600 >= currentSunrise) {
+          new_items.push('<li class="sunrise"><span>9</span></li>')
+    	  } else if(time < currentSunset && time+3600 >= currentSunset) {
+    	    new_items.push('<li class="sunset"><span>0</span></li>')
+    	  }
 				day = newDay;
 	    });
 			$('.times').append(new_items);

@@ -61,6 +61,14 @@ body, html, main, .settings { height: 100%;}
   content: '3';
 }
 
+.weather-icon.sunrise:before {
+  content: '9';
+}
+
+.weather-icon.sunset:before {
+  content: '0';
+}
+
 /*END ICONS*/
 
 .settings {
@@ -158,7 +166,7 @@ main {
 	left: 0;
 	right: 0;
 	overflow: hidden;
-  padding: 25px 0;  
+  padding: 40px 0 25px;  
 }
 
 .time-wrapper {
@@ -188,7 +196,38 @@ main {
   -moz-transform: rotate(-50deg);
 	cursor: pointer;
 	opacity: 0.5;
+	position: relative;
 }
+
+.times li.sunset, .times li.sunrise {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  font-family: 'Weather';
+  font-size: 48px;
+  position: relative;
+}
+
+.times li span {
+  display: block;
+  position: absolute;
+  top: -60px;
+}
+
+.times li.sunset {
+  color: orange;
+}
+
+.times li.sunrise {
+  color: yellow;
+}
+
+/*.times li.sunrise span:before {
+  content: '9';
+}
+
+.times li.sunset span:before {
+  content: '0';
+}*/
 
 .times .dayBreak {
 	font-weight: bold;
