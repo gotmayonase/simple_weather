@@ -79,7 +79,7 @@
 	    }, function(error){
 	      gotLocation(32.7758,-96.7967)
 				$('.location').html('Dallas, TX')
-	      log('getLocation failed: ' + error);
+	      log('getLocation failed: ' + err.code + ' - ' + err.message));
 	    }, {timeout: 10000});
 	  }
 	  else {
