@@ -48,7 +48,7 @@
     var delta = e.originalEvent.deltaY? e.originalEvent.deltaY*(-120) : e.originalEvent.wheelDelta
     scrollTimes(delta);
     if (e.preventDefault)
-      e.preventDefault();
+      stopEvent(e);
     else
       return false;
   })
@@ -240,6 +240,16 @@
 		};
 	}
 	
+	function stopEvent(event) {
+	    event.preventDefault();
+	    event.stopPropagation();
+	    if ($.browser.msie) {
+	        event.originalEvent.keyCode = 0;
+	        event.originalEvent.cancelBubble = true;
+	        event.originalEvent.returnValue = false;
+	    }
+	}
+	
 	$(function(){
 	  getLocation();
 	
@@ -257,13 +267,13 @@
 	        log(results);
 	      }
 	    });
-			e.preventDefault();
+			stopEvent(e);
 	    return false;
 	  });
 	
 		$('#pinButton').click(function(e){
 			$('body').toggleClass('open');
-			e.preventDefault();
+			stopEvent(e);
 		})
 	
 		$('#currentLocation').click(function(){
@@ -271,7 +281,7 @@
 			$('#loading').show();
 			$('#searchField').val('');
 			getLocation();
-			e.preventDefault();
+			stopEvent(e);
 		})
 	});
 
