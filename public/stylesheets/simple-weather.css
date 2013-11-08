@@ -14,7 +14,7 @@
   src: url(/fonts/Quicksand-Bold.ttf);
 }
 
-body, html, main, .settings { height: 100%;}
+body, html, main, .settings { height: 100%; overflow: hidden;}
 
 .night main {
   background: #00001E;
