@@ -16,14 +16,14 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.bodyParser());
 
 app.get('/forecast/:latitude,:longitude', function(request,response) {
-  response.send(backupData);
-  // forecast.get(request.params.latitude, request.params.longitude, { units: 'auto' },function(err, res, data) {
-  //  if (err) {
-  //    response.send(backupData);
-  //  } else {
-  //    response.send(data);
-  //  }
-  // })
+  // response.send(backupData);
+  forecast.get(request.params.latitude, request.params.longitude, { units: 'auto' },function(err, res, data) {
+   if (err) {
+     response.send(backupData);
+   } else {
+     response.send(data);
+   }
+  })
 });
 
 
