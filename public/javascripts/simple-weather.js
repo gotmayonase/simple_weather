@@ -126,7 +126,15 @@
 	function fetchForecast(latitude, longitude) {
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
 	    units = data.flags.units == 'us' ? 'F' : 'C';
-	    var dayIndexStart = new Date(data.currently.time * 1000).getDay(), dayIndex = 0;
+	    var dayIndexStart = new Date(data.currently.time * 1000).getDay();
+			var dayIndex;
+			$.each(data.daily.data, function(index, dailyData) {
+				date = new Date(dailyData.sunriseTime * 1000);
+				if (date.getDay() == dayIndexStart) {
+					dayIndex = index;
+					return false;
+				};
+			});
 	    var currentSunrise = data.daily.data[dayIndex].sunriseTime, currentSunset = data.daily.data[dayIndex].sunsetTime;
 			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon, timeClass(data.currently.time, currentSunrise, currentSunset));
 			changeBackground();
@@ -152,11 +160,13 @@
 				var time = tempObject.time;
         $li.data('timeClass', timeClass(time, currentSunrise, currentSunset));
         index == 0 &&	$li.addClass('active');
-        
+        console.log('' + date)
+				console.log('' + new Date(currentSunrise * 1000))
+				console.log('' + new Date(currentSunset * 1000))
 				new_items.push($li);
-				if(tempObject.time < currentSunrise && time+3600 >= currentSunrise) {
+				if(time <= currentSunrise && time+3600 >= currentSunrise) {
           new_items.push('<li class="sunrise"><span>9</span></li>')
-    	  } else if(time < currentSunset && time+3600 >= currentSunset) {
+    	  } else if(time <= currentSunset && time+3600 >= currentSunset) {
     	    new_items.push('<li class="sunset"><span>0</span></li>')
     	  }
 				day = newDay;
@@ -241,13 +251,8 @@
 	}
 	
 	function stopEvent(event) {
-	    event.preventDefault();
-	    event.stopPropagation();
-	    if ($.browser.msie) {
-	        event.originalEvent.keyCode = 0;
-	        event.originalEvent.cancelBubble = true;
-	        event.originalEvent.returnValue = false;
-	    }
+    event.preventDefault();
+    event.stopPropagation();
 	}
 	
 	$(function(){
