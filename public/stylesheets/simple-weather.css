@@ -26,10 +26,13 @@ body, html, main, .settings { height: 100%;}
   color: #00001E;
 }
 
-.day.rain main {
+.day.rain main, .day.cloudy main {
   background: #aaa;
 }
 
+.day.partly-cloudy main {
+  background: #99aabb;
+}
 
 .weatherBG {
 	position: fixed;
