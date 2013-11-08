@@ -26,6 +26,10 @@ body, html, main, .settings { height: 100%;}
   color: #00001E;
 }
 
+.day.rain main {
+  background: #aaa;
+}
+
 
 .weatherBG {
 	position: fixed;
@@ -36,15 +40,50 @@ body, html, main, .settings { height: 100%;}
 }
 
 /*ICONS*/
+
+@keyframes raindrops {
+  from { left:50%; }
+  to { bottom: 0px; left:50%; }
+}
+
+@-webkit-keyframes raindrops {
+  from { -webkit-transform: translate3d(0px, 0px, 0px) rotate(45deg); }
+  to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(45deg); }
+}
+
 .weather-icon {
+  display: block;
   font-family: 'Weather';
-  font-size: 55px;
+  font-size: 160px;
+  position: absolute;
 }
 
-.weather-icon.rain:before {
-  content: '5';
+
+.drop {
+  opacity: 0.5;
+  z-index: 999;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #79dbfc;
+  border-radius: 0px 10px 10px 10px;
+  transform: rotate(45deg);
 }
 
+.rain .drop:nth-of-type(n+1) {
+  -webkit-font-smoothing: antialiased;
+  -webkit-animation: raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33)
+}
+
+.rain .drop:nth-of-type(2n+1) {
+  -webkit-font-smoothing: antialiased;
+  -webkit-animation: raindrops 2.7s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
+}
+
+.rain .drop:nth-of-type(3n+2) {
+  -webkit-font-smoothing: antialiased;
+  -webkit-animation: raindrops 3s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
+}
 .weather-icon.sun:before {
   content: '1';
 }
