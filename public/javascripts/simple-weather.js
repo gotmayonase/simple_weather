@@ -160,9 +160,6 @@
 				var time = tempObject.time;
         $li.data('timeClass', timeClass(time, currentSunrise, currentSunset));
         index == 0 &&	$li.addClass('active');
-        console.log('' + date)
-				console.log('' + new Date(currentSunrise * 1000))
-				console.log('' + new Date(currentSunset * 1000))
 				new_items.push($li);
 				if(time <= currentSunrise && time+3600 >= currentSunrise) {
           new_items.push('<li class="sunrise"><span>9</span></li>')
