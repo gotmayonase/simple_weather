@@ -45,8 +45,8 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 /*ICONS*/
 
 @keyframes raindrops {
-  from { -webkit-transform: translate3d(0px, 0px, 0px) rotate(45deg); }
-  to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(45deg); }
+  from { transform: translate3d(0px, 0px, 0px) rotate(45deg); }
+  to { top:100%; transform: translate3d(0px, 0px, 0px) rotate(45deg); }
 }
 
 @-webkit-keyframes raindrops {
@@ -55,8 +55,8 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 }
 
 @keyframes windy-raindrops {
-  from { -webkit-transform: translate3d(0px, 0px, 0px) rotate(30deg); }
-  to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(45deg); }
+  from { transform: translate3d(0px, 0px, 0px) rotate(30deg); }
+  to { top:110%; transform: translate3d(100px, 0px, 0px) rotate(30deg); }
 }
 
 @-webkit-keyframes windy-raindrops {
@@ -84,31 +84,38 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 }
 
 .rain .drop {
-  -webkit-animation: raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33)
+  -webkit-animation: raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
+	animation: raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
 }
 
 .wind.rain .drop {
-	-webkit-animation: windy-raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33)
+	-webkit-animation: windy-raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
+	animation: windy-raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
 }
 
 .rain .drop:nth-of-type(odd) {
 	-webkit-animation-duration: 3.1s;
+	animation-duration: 3.1s;
 }
 
 .rain .drop:nth-of-type(odd) {
 	-webkit-animation-duration: 2.5s;
+	animation-duration: 2.5s;
 }
 
 .rain .drop:nth-of-type(2n+1) {
 	-webkit-animation-duration: 2.7s;
+	animation-duration: 2.7s;
 }
 
 .rain .drop:nth-of-type(3n+1) {
 	-webkit-animation-duration: 2.9s;
+	animation-duration: 2.9s;
 }
 
 .rain .drop:nth-of-type(5n+0) {
 	-webkit-animation-duration: 2.6s;
+	animation-duration: 2.6s;
 }
 
 .weather-icon.sun:before {
