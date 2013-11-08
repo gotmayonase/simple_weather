@@ -242,7 +242,8 @@
 	
 	$(function(){
 	  getLocation();
-	  $('form').submit(function() {
+	
+	  $('form').submit(function(e) {
 	    var address = $('#searchField').val();
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
@@ -256,13 +257,8 @@
 	        log(results);
 	      }
 	    });
+			e.preventDefault();
 	    return false;
-	  });
-
-	  $('#currentLocation').click(function(e){
-	    getLocation();
-	    $('#searchField').val('');
-	    e.preventDefault();
 	  });
 	
 		$('#pinButton').click(function(e){
@@ -273,7 +269,9 @@
 		$('#currentLocation').click(function(){
 			$('body').removeClass('open');
 			$('#loading').show();
+			$('#searchField').val('');
 			getLocation();
+			e.preventDefault();
 		})
 	});
 
