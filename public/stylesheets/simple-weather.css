@@ -44,6 +44,14 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 
 /*ICONS*/
 
+.weather-icon {
+  display: block;
+  font-family: 'Weather';
+  font-size: 160px;
+  position: absolute;
+}
+
+/* RAIN START */
 @keyframes raindrops {
   from { transform: translate3d(0px, 0px, 0px) rotate(45deg); }
   to { top:100%; transform: translate3d(0px, 0px, 0px) rotate(45deg); }
@@ -64,22 +72,14 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
   to { top:110%; -webkit-transform: translate3d(100px, 0px, 0px) rotate(30deg); }
 }
 
-.weather-icon {
-  display: block;
-  font-family: 'Weather';
-  font-size: 160px;
-  position: absolute;
-}
-
-
 .drop {
   opacity: 0.7;
   z-index: 999;
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: #79dbfc;
-  border-radius: 0px 10px 10px 10px;
+  border-radius: 0px 50% 50% 50%;
   transform: rotate(45deg);
 }
 
@@ -94,29 +94,107 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 }
 
 .rain .drop:nth-of-type(odd) {
-	-webkit-animation-duration: 3.1s;
-	animation-duration: 3.1s;
+	-webkit-animation-duration: 2.4s;
+	animation-duration: 2.4s;
 }
 
-.rain .drop:nth-of-type(odd) {
+.rain .drop:nth-of-type(n+3) {
 	-webkit-animation-duration: 2.5s;
 	animation-duration: 2.5s;
 }
 
 .rain .drop:nth-of-type(2n+1) {
-	-webkit-animation-duration: 2.7s;
+	-webkit-animation-duration: 2.3s;
 	animation-duration: 2.7s;
 }
 
 .rain .drop:nth-of-type(3n+1) {
-	-webkit-animation-duration: 2.9s;
-	animation-duration: 2.9s;
+	-webkit-animation-duration: 2.2s;
+	animation-duration: 2.8s;
 }
 
 .rain .drop:nth-of-type(5n+0) {
-	-webkit-animation-duration: 2.6s;
-	animation-duration: 2.6s;
+	-webkit-animation-duration: 2.1s;
+	animation-duration: 2.1s;
 }
+
+/* RAIN END */
+
+/* SNOW START */
+
+@keyframes snowflakes {
+  from { transform: translate3d(0px, 0px, 0px); }
+  to { top:100%; transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+}
+
+@-webkit-keyframes snowflakes {
+  from { -webkit-transform: translate3d(0px, 0px, 0px); }
+  to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+}
+
+.flake {
+  opacity: 0.7;
+  z-index: 999;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+	opacity: 0.8;
+	-webkit-transform-origin: left -30px;
+	transform-origin: left -30px;
+}
+
+.snow .flake {
+  -webkit-animation: snowflakes 8s linear infinite;
+	animation: snowflakes 8s linear infinite;
+}
+
+.snow .flake:nth-of-type(odd) {
+	-webkit-animation-duration: 9s;
+	animation-duration: 9s;
+	width: 15px;
+  height: 15px;
+	-webkit-animation-delay: 1.5s;
+	animation-delay: 1.5s;
+	-webkit-transform-origin: -10px -20px;
+	transform-origin: -10px -20px;
+}
+
+.snow .flake:nth-of-type(n+3) {
+	-webkit-animation-duration: 7.6s;
+	animation-duration: 7.6s;
+	width: 7px;
+  height: 7px;
+}
+
+.snow .flake:nth-of-type(2n+1) {
+	-webkit-animation-duration: 7.9s;
+	animation-duration: 7.9s;
+	width: 6px;
+  height: 6px;
+}
+
+.snow .flake:nth-of-type(3n+1) {
+	-webkit-animation-duration: 8.2s;
+	animation-duration: 8.2s;
+	width: 11px;
+  height: 11px;
+	-webkit-animation-delay: 1s;
+	animation-delay: 1s;
+}
+
+.snow .flake:nth-of-type(5n+0) {
+	-webkit-animation-duration: 8.6s;
+	animation-duration: 8.6s;
+	width: 13px;
+  height: 13px;
+	-webkit-animation-delay: 1.2s;
+	animation-delay: 1.2s;
+}
+
+
+/* SNOW END*/
 
 .weather-icon.sun:before {
   content: '1';

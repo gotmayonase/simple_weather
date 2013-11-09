@@ -1,5 +1,5 @@
 (function(){
-  var index, scroll, times, count, delta, middle, increment, units, bgTimer;
+  var index, scroll, times, count, delta, middle, increment, units, bgTimer, precipIntensity = 0;
 	refreshDefaults();
 	
 	function log(message) {
@@ -38,7 +38,7 @@
   function selectTime(index, $li, animationSpeed) {
     times.removeClass('active');
     $li.addClass('active');
-		setWeather($li.data('temp'), $li.data('summary'), $li.data('icon'), $li.data('timeClass'));
+		setWeather($li.data('temp'), $li.data('summary'), $li.data('icon'), $li.data('timeClass'), $li.data('precipIntensity'));
 		scroll.animate({
       left: (index == count ? index : ($li.position().left * -1)) + middle - 25
     }, animationSpeed)
@@ -68,6 +68,7 @@
 		if($('body').attr('class') != icon) {
 		  var bodyClass = icon + ' ' + $('body').data('timeClass');
 			$('body').attr('class', bodyClass);
+			$('.inserted').remove();
 		}
 	}
 
@@ -125,6 +126,7 @@
 	
 	function fetchForecast(latitude, longitude) {
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
+		console.log(data);
 	    units = data.flags.units == 'us' ? 'F' : 'C';
 	    var dayIndexStart = new Date(data.currently.time * 1000).getDay();
 			var dayIndex;
@@ -136,7 +138,7 @@
 				};
 			});
 	    var currentSunrise = data.daily.data[dayIndex].sunriseTime, currentSunset = data.daily.data[dayIndex].sunsetTime;
-			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon, timeClass(data.currently.time, currentSunrise, currentSunset));
+			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon, timeClass(data.currently.time, currentSunrise, currentSunset), data.currently.precipIntensity);
 			changeBackground();
 			$('.times').html('');
 			var new_items = [], day, prevTimeClass;
@@ -154,9 +156,12 @@
 				
 				$li = $('<li>' + hoursString +'</li>');
 				$li.data('temp', tempObject.temperature);
-				$li.data('precip', tempObject.precipProbability);
+				$li.data('precipIntensity', tempObject.precipIntensity);
 				$li.data('summary', tempObject.summary);
-				$li.data('icon', tempObject.icon);
+				var icon = tempObject.icon;
+				if (tempObject.windSpeed > 13 && icon != 'wind')
+					icon += ' wind'
+				$li.data('icon', icon);
 				var time = tempObject.time;
         $li.data('timeClass', timeClass(time, currentSunrise, currentSunset));
         index == 0 &&	$li.addClass('active');
@@ -185,12 +190,13 @@
 		scroll.css({left:middle})
 	}
 	
-	function setWeather(temp, condition, icon, timeClass) {
+	function setWeather(temp, condition, icon, timeClass, precip) {
 		$('.temperature').html([parseInt(temp, 10),'&deg;',units].join(''))
     $('.condition').html(condition)
     icon = icon.replace(/-(day|night)/, '');
 		$('body').data('icon', icon);
     $('body').data('timeClass', timeClass);
+		precipIntensity = precip;
 	}
 
 	function geocodePosition(position) {
@@ -252,6 +258,20 @@
     event.stopPropagation();
 	}
 	
+	function randomlyInsertSpan(className, randomChance, max) {
+		if (!($('.' + className).length > max)) {
+			var rand = Math.floor(Math.random() * randomChance);
+			if(rand == 0){
+				var count = Math.floor(Math.random() * 5);
+				for(var i = 0; i < count; i++) {
+					var $span = $('<span class="' + className + ' inserted"></span>');
+					$span.css({left: Math.floor(Math.random() * 100) + '%', top: Math.floor(-1*Math.random()*500)})
+					$('main').append($span);
+				}
+			}
+		};
+	}
+	
 	$(function(){
 	  getLocation();
 	
@@ -285,6 +305,17 @@
 			getLocation();
 			stopEvent(e);
 		})
+		
+		$('.flake').on('animationIteration webkitAnimationIteration mozAnimationIteration', function(e){
+			$(this).css({left: Math.floor(Math.random() * 100) + '%'})
+			randomlyInsertSpan('flake', 1, precipIntensity * 10000);
+		})
+		
+		$('.drop').on('animationIteration webkitAnimationIteration mozAnimationIteration', function(e){
+			$(this).css({left: Math.floor(Math.random() * 100) + '%'})
+			randomlyInsertSpan('drop', 1, Math.max(18, precipIntensity * 1000));
+		})
+		
 	});
 
 	$(window).on('resize', refreshDefaults)
