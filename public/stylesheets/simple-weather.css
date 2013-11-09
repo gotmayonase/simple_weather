@@ -153,33 +153,23 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 .snow .flake:nth-of-type(odd) {
 	-webkit-animation-duration: 9s;
 	animation-duration: 9s;
-	width: 15px;
-  height: 15px;
 	-webkit-animation-delay: 1.5s;
 	animation-delay: 1.5s;
-	-webkit-transform-origin: -10px -20px;
-	transform-origin: -10px -20px;
 }
 
 .snow .flake:nth-of-type(n+3) {
 	-webkit-animation-duration: 7.6s;
 	animation-duration: 7.6s;
-	width: 7px;
-  height: 7px;
 }
 
 .snow .flake:nth-of-type(2n+1) {
 	-webkit-animation-duration: 7.9s;
 	animation-duration: 7.9s;
-	width: 6px;
-  height: 6px;
 }
 
 .snow .flake:nth-of-type(3n+1) {
 	-webkit-animation-duration: 8.2s;
 	animation-duration: 8.2s;
-	width: 11px;
-  height: 11px;
 	-webkit-animation-delay: 1s;
 	animation-delay: 1s;
 }
@@ -187,8 +177,6 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 .snow .flake:nth-of-type(5n+0) {
 	-webkit-animation-duration: 8.6s;
 	animation-duration: 8.6s;
-	width: 13px;
-  height: 13px;
 	-webkit-animation-delay: 1.2s;
 	animation-delay: 1.2s;
 }

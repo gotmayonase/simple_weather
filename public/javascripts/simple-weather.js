@@ -258,16 +258,16 @@
     event.stopPropagation();
 	}
 	
-	function randomlyInsertSpan(className, randomChance, max) {
+	function randomlyInsertSpan(className, max, extra_css) {
 		if (!($('.' + className).length > max)) {
-			var rand = Math.floor(Math.random() * randomChance);
-			if(rand == 0){
-				var count = Math.floor(Math.random() * 5);
-				for(var i = 0; i < count; i++) {
-					var $span = $('<span class="' + className + ' inserted"></span>');
-					$span.css({left: Math.floor(Math.random() * 100) + '%', top: Math.floor(-1*Math.random()*500)})
-					$('main').append($span);
-				}
+			var count = Math.floor(Math.random() * (max / 10));
+			for(var i = 0; i < count; i++) {
+				var $span = $('<span class="' + className + ' inserted"></span>');
+				$span.css({left: Math.floor(Math.random() * 100) + '%', top: Math.floor(-1*Math.random()*500)})
+				if (arguments.length == 3) {
+					$span.css(extra_css);
+				};
+				$('main').append($span);
 			}
 		};
 	}
@@ -308,12 +308,13 @@
 		
 		$('.flake').on('animationIteration webkitAnimationIteration mozAnimationIteration', function(e){
 			$(this).css({left: Math.floor(Math.random() * 100) + '%'})
-			randomlyInsertSpan('flake', 1, precipIntensity * 10000);
+			var dimension = Math.max(6, Math.round(Math.random() * 15));
+			randomlyInsertSpan('flake', Math.max(100,precipIntensity * 10000), { width: dimension, height: dimension, opacity: Math.min(0.7, Math.random()) });
 		})
 		
 		$('.drop').on('animationIteration webkitAnimationIteration mozAnimationIteration', function(e){
 			$(this).css({left: Math.floor(Math.random() * 100) + '%'})
-			randomlyInsertSpan('drop', 1, Math.max(18, precipIntensity * 1000));
+			randomlyInsertSpan('drop', Math.max(18, precipIntensity * 1000));
 		})
 		
 	});
