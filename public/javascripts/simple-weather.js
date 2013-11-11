@@ -263,8 +263,9 @@
 	  max = Math.min(max, 100);
 		if (!($('.' + className).length > max)) {
 			var $span = $('<span class="' + className + ' inserted"></span>');
-			var delay = randomBetween(1,3);
-			$span.css({left: Math.floor(Math.random() * 100) + '%', top: Math.floor(-1*Math.random()*500), '-webkit-animation-delay': delay, 'animation-delay': delay, '-moz-animation-delay': delay})
+			var delay = randomBetween(0.0,5.0) + 's';
+			console.log(delay);
+			$span.css({left: Math.floor(Math.random() * 100) + '%', top: '-200px', '-webkit-animation-delay': delay, 'animation-delay': delay, '-moz-animation-delay': delay})
 			if (arguments.length == 3) {
 				$span.css(extra_css);
 			};
@@ -273,7 +274,7 @@
 	}
 	
 	function randomBetween(low, high) {
-	  return Math.floor(Math.random()*(high + 1)+low);
+	  return Math.random()*(high + 1)+low;
 	}
 	
 	$(function(){
