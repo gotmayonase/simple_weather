@@ -127,11 +127,12 @@
 	function fetchForecast(latitude, longitude) {
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
 		console.log(data);
+			var timeZone = data.timezone;
 	    units = data.flags.units == 'us' ? 'F' : 'C';
-	    var dayIndexStart = new Date(data.currently.time * 1000).getDay();
+	    var dayIndexStart = new timezoneJS.Date(data.currently.time * 1000, timeZone).getDay();
 			var dayIndex;
 			$.each(data.daily.data, function(index, dailyData) {
-				date = new Date(dailyData.sunriseTime * 1000);
+				date = new timezoneJS.Date(dailyData.sunriseTime * 1000, timeZone);
 				if (date.getDay() == dayIndexStart) {
 					dayIndex = index;
 					return false;
@@ -143,7 +144,7 @@
 			$('.times').html('');
 			var new_items = [], day, prevTimeClass;
 	    $.each(data.hourly.data, function(index, tempObject) {
-	      var date = new Date(tempObject.time * 1000);
+	      var date = new timezoneJS.Date(tempObject.time * 1000, timeZone);
 				var newDay = mapToDay(date);
 	      var hoursString = convertMilitaryHoursToSaneHourString(date.getHours());
 				var $li;
@@ -261,15 +262,13 @@
 	function randomlyInsertSpan(className, max, extra_css) {
 	  max = Math.min(max, 100);
 		if (!($('.' + className).length > max)) {
-			var count = Math.floor(Math.random() * (max / 10));
-			for(var i = 0; i < count; i++) {
-				var $span = $('<span class="' + className + ' inserted"></span>');
-				$span.css({left: Math.floor(Math.random() * 100) + '%', top: Math.floor(-1*Math.random()*500)})
-				if (arguments.length == 3) {
-					$span.css(extra_css);
-				};
-				$('main').append($span);
-			}
+			var $span = $('<span class="' + className + ' inserted"></span>');
+			var delay = randomBetween(1,3);
+			$span.css({left: Math.floor(Math.random() * 100) + '%', top: Math.floor(-1*Math.random()*500), '-webkit-animation-delay': delay, 'animation-delay': delay, '-moz-animation-delay': delay})
+			if (arguments.length == 3) {
+				$span.css(extra_css);
+			};
+			$('main').append($span);
 		};
 	}
 	
@@ -278,6 +277,8 @@
 	}
 	
 	$(function(){
+		timezoneJS.timezone.zoneFileBasePath = '/tz';
+		timezoneJS.timezone.init();
 	  getLocation();
 	
 	  $('form').submit(function(e) {
