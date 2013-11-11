@@ -44,7 +44,7 @@
     }, animationSpeed)
   }
 
-  $(document).on('mousewheel wheel swipe', function(e){
+  $(document).on('mousewheel wheel', function(e){
     var delta = e.originalEvent.deltaY? e.originalEvent.deltaY*(-120) : e.originalEvent.wheelDelta
     scrollTimes(delta);
     if (e.preventDefault)
@@ -259,6 +259,7 @@
 	}
 	
 	function randomlyInsertSpan(className, max, extra_css) {
+	  max = Math.min(max, 100);
 		if (!($('.' + className).length > max)) {
 			var count = Math.floor(Math.random() * (max / 10));
 			for(var i = 0; i < count; i++) {
@@ -270,6 +271,10 @@
 				$('main').append($span);
 			}
 		};
+	}
+	
+	function randomBetween(low, high) {
+	  return Math.floor(Math.random()*(high + 1)+low);
 	}
 	
 	$(function(){
@@ -306,14 +311,14 @@
 			stopEvent(e);
 		})
 		
-		$('.flake').on('animationIteration webkitAnimationIteration mozAnimationIteration', function(e){
+		$('body').delegate('.flake', 'animationIteration webkitAnimationIteration mozAnimationIteration', function(e){
 			$(this).css({left: Math.floor(Math.random() * 100) + '%'})
 			var dimension = Math.max(6, Math.round(Math.random() * 15));
-			randomlyInsertSpan('flake', Math.max(100,precipIntensity * 10000), { width: dimension, height: dimension, opacity: Math.min(0.7, Math.random()) });
+			randomlyInsertSpan('flake', Math.max(100,precipIntensity * 1000), { width: dimension, height: dimension, opacity: Math.min(0.7, Math.random()) });
 		})
 		
-		$('.drop').on('animationIteration webkitAnimationIteration mozAnimationIteration', function(e){
-			$(this).css({left: Math.floor(Math.random() * 100) + '%'})
+		$('body').delegate('.drop', 'animationIteration webkitAnimationIteration mozAnimationIteration', function(e) {
+		  $(this).css({left: Math.floor(Math.random() * 100) + '%'})
 			randomlyInsertSpan('drop', Math.max(18, precipIntensity * 1000));
 		})
 		

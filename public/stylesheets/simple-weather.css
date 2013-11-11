@@ -93,31 +93,6 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 	animation: windy-raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
 }
 
-.rain .drop:nth-of-type(odd) {
-	-webkit-animation-duration: 2.4s;
-	animation-duration: 2.4s;
-}
-
-.rain .drop:nth-of-type(n+3) {
-	-webkit-animation-duration: 2.5s;
-	animation-duration: 2.5s;
-}
-
-.rain .drop:nth-of-type(2n+1) {
-	-webkit-animation-duration: 2.3s;
-	animation-duration: 2.7s;
-}
-
-.rain .drop:nth-of-type(3n+1) {
-	-webkit-animation-duration: 2.2s;
-	animation-duration: 2.8s;
-}
-
-.rain .drop:nth-of-type(5n+0) {
-	-webkit-animation-duration: 2.1s;
-	animation-duration: 2.1s;
-}
-
 /* RAIN END */
 
 /* SNOW START */
