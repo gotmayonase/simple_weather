@@ -264,7 +264,6 @@
 		if (!($('.' + className).length > max)) {
 			var $span = $('<span class="' + className + ' inserted"></span>');
 			var delay = randomBetween(0.0,5.0) + 's';
-			console.log(delay);
 			$span.css({left: Math.floor(Math.random() * 100) + '%', top: '-200px', '-webkit-animation-delay': delay, 'animation-delay': delay, '-moz-animation-delay': delay})
 			if (arguments.length == 3) {
 				$span.css(extra_css);
@@ -283,6 +282,7 @@
 	  getLocation();
 	
 	  $('form').submit(function(e) {
+			geocoder = new google.maps.Geocoder();
 	    var address = $('#searchField').val();
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
@@ -313,13 +313,17 @@
 			stopEvent(e);
 		})
 		
-		$('body').delegate('.flake', 'animationIteration webkitAnimationIteration mozAnimationIteration', function(e){
+		$('body').delegate('.flake', 'animationiteration webkitAnimationIteration mozAnimationIteration', function(e){
 			$(this).css({left: Math.floor(Math.random() * 100) + '%'})
 			var dimension = Math.max(6, Math.round(Math.random() * 15));
-			randomlyInsertSpan('flake', Math.max(100,precipIntensity * 1000), { width: dimension, height: dimension, opacity: Math.min(0.7, Math.random()) });
+			randomlyInsertSpan('flake', Math.max(100,precipIntensity * 1000), { 
+				width: dimension, 
+				height: dimension, 
+				opacity: Math.min(0.7, Math.random())
+			});
 		})
 		
-		$('body').delegate('.drop', 'animationIteration webkitAnimationIteration mozAnimationIteration', function(e) {
+		$('body').delegate('.drop', 'animationiteration webkitAnimationIteration mozAnimationIteration', function(e) {
 		  $(this).css({left: Math.floor(Math.random() * 100) + '%'})
 			randomlyInsertSpan('drop', Math.max(18, precipIntensity * 1000));
 		})

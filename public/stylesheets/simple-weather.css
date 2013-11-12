@@ -102,6 +102,11 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
   to { top:100%; transform: translate3d(0px, 0px, 0px) rotate(360deg); }
 }
 
+@-moz-keyframes snowflakes {
+  from { -moz-transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+  to { -moz-transform: translate(0px, 1000px) rotate(360deg); }
+}
+
 @-webkit-keyframes snowflakes {
   from { -webkit-transform: translate3d(0px, 0px, 0px); }
   to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
@@ -118,14 +123,16 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 	opacity: 0.8;
 	-webkit-transform-origin: left -30px;
 	transform-origin: left -30px;
+	-moz-transform-origin: left - 30px;
 }
 
 .snow .flake {
   -webkit-animation: snowflakes 8s linear infinite;
 	animation: snowflakes 8s linear infinite;
+	-moz-animation: snowflakes 9s linear infinite;
 }
 
-.snow .flake:nth-of-type(odd) {
+/*.snow .flake:nth-of-type(odd) {
 	-webkit-animation-duration: 9s;
 	animation-duration: 9s;
 	-webkit-animation-delay: 1.5s;
@@ -154,7 +161,7 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 	animation-duration: 8.6s;
 	-webkit-animation-delay: 1.2s;
 	animation-delay: 1.2s;
-}
+}*/
 
 
 /* SNOW END*/
