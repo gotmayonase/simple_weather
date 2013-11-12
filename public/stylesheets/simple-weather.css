@@ -98,18 +98,33 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 /* SNOW START */
 
 @keyframes snowflakes {
-  from { transform: translate3d(0px, 0px, 0px); }
+  from { transform: translate3d(0px, 0px, 0px) rotate(0deg); }
   to { top:100%; transform: translate3d(0px, 0px, 0px) rotate(360deg); }
 }
 
 @-moz-keyframes snowflakes {
   from { -moz-transform: translate3d(0px, 0px, 0px) rotate(0deg); }
-  to { -moz-transform: translate(0px, 1000px) rotate(360deg); }
+  to { top:100%; -moz-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
 }
 
 @-webkit-keyframes snowflakes {
   from { -webkit-transform: translate3d(0px, 0px, 0px); }
   to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+}
+
+@keyframes snowflakes-counter {
+  from { transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { top:100%; transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+}
+
+@-moz-keyframes snowflakes-counter {
+  from { -moz-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { top:100%; -moz-transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+}
+
+@-webkit-keyframes snowflakes-counter {
+  from { -webkit-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(0deg); }
 }
 
 .flake {
@@ -129,7 +144,13 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 .snow .flake {
   -webkit-animation: snowflakes 8s linear infinite;
 	animation: snowflakes 8s linear infinite;
-	-moz-animation: snowflakes 9s linear infinite;
+	-moz-animation: snowflakes 8s linear infinite;
+}
+
+.snow .flake.x2 {
+  -webkit-animation: snowflakes-counter 8s linear infinite;
+	animation: snowflakes-counter 8s linear infinite;
+	-moz-animation: snowflakes-counter 8s linear infinite;
 }
 
 /*.snow .flake:nth-of-type(odd) {
@@ -203,6 +224,7 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
   color:#fff;
   padding:0 20px;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   -webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
   -webkit-transform: translate3d(-100%, 0, 0);
@@ -238,6 +260,7 @@ main {
 .open main {
   -webkit-transform: translate3d(300px, 0, 0); 
   -moz-transform: translate3d(300px, 0, 0); 
+  transform: translate3d(300px,0,0);
 }
 
 .open .settings {
@@ -341,14 +364,6 @@ main {
 .times li.sunrise {
   color: yellow;
 }
-
-/*.times li.sunrise span:before {
-  content: '9';
-}
-
-.times li.sunset span:before {
-  content: '0';
-}*/
 
 .times .dayBreak {
 	font-weight: bold;

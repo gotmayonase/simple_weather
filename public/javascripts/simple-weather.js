@@ -268,6 +268,9 @@
 			if (arguments.length == 3) {
 				$span.css(extra_css);
 			};
+			if (Math.round(Math.random()) == 0) {
+			  $span.addClass('x2');
+			};
 			$('main').append($span);
 		};
 	}
