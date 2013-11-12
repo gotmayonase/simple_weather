@@ -229,12 +229,12 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 	100% { left: -10%; -webkit-transform: translate3d(0,0,0) }
 }
 @-moz-keyframes moveclouds {
-	0% { left: 100%; -webkit-transform: translate3d(0,0,0) }
-	100% { left: 0%; -webkit-transform: translate3d(0,0,0) }
+	0% { -moz-transform: translate3d(0,0,0) }
+	100% { left: -10%; -moz-transform: translate3d(0,0,0) }
 }
 @-o-keyframes moveclouds {
-	0% {right: -200px, left:auto;}
-	100% {left: -200px, right: auto;}
+	0% { transform: translate3d(0,0,0) }
+	100% { left: -10%; transform: translate3d(0,0,0) }
 }
 
 /* CLOUDS END */

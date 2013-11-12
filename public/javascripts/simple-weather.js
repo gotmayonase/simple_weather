@@ -338,34 +338,45 @@ jQuery.fn.random = function() {
 			stopEvent(e);
 		})
 		
-		var maxClouds = 20;
+		var maxClouds = 40;
 		
 		$('body').on('weatherChange', function(){
 		  var cloudCover = $(this).data('cloudCover');
 		  console.log('cloudCover: ' + cloudCover);
 		  var windSpeed = $(this).data('windSpeed');
 		  console.log('windSpeed: ' + windSpeed);
-      $('.cloud.inserted').remove();
-		  var numClouds = Math.round(maxClouds * cloudCover);
-		  for (var i = 0; i < numClouds; i++){
-        var delay = randomBetween(1,5);
-        var scaleAndOpacity = randomBetween(0.6,0.8);
-        console.log(scaleAndOpacity);
-        var $cloud = $('<div class="cloud inserted"><span class="fluffy"></span></div>');
-        // $cloud.css({
-        //   '-webkit-animation-delay': delay + 's',
-        //   'animation-delay': delay + 's',
-        //   '-moz-animation-delay': delay + 's',
-        //   '-webkit-transform': 'scale(' + scaleAndOpacity + ')',
-        //  '-moz-transform': 'scale(' + scaleAndOpacity + ')',
-        //  transform: 'scale(' + scaleAndOpacity + ')',
-        //  opacity: scaleAndOpacity,
-        // });
-        if (Math.round(Math.random()) == 0) {
-          $cloud.addClass('flip');
-        };
-        console.log($('main').append($cloud));
-		  };
+		  var cloudsToGen = Math.round(maxClouds * cloudCover);
+		  var existingClouds = $('.cloud.generated').length;
+		  
+		  if (existingClouds > cloudsToGen) {
+		    for (var i=0; i < (existingClouds - cloudsToGen); i++) {
+          $('.clouds.generated').random().remove();
+		    };
+		  } else if (existingClouds < cloudsToGen) {
+		    for (var i = 0; i < (cloudsToGen - existingClouds); i++){
+          var delay = Math.round(randomBetween(1,10));
+          var scaleAndOpacity = Math.round(randomBetween(0.6,1.0)*10)/10;
+          var top = Math.floor(randomBetween(0,30))
+          var duration = randomBetween(15,30);
+          var $cloud = $("<div class='cloud generated'><span class='fluffy'></span></div>");
+          if (Math.round(Math.random()) == 0) {
+            $cloud.addClass('flip');
+          };
+          $('main').append($cloud);
+          $cloud.css({
+            '-webkit-animation-delay': delay + 's',
+            'animation-delay': delay + 's',
+            '-moz-animation-delay': delay + 's',
+            '-webkit-transform': 'scale(' + scaleAndOpacity + ')',
+            '-moz-transform': 'scale(' + scaleAndOpacity + ')',
+            '-webkit-animation-duration': duration + 's',
+            '-moz-animation-duration': duration + 's',
+            transform: 'scale(' + scaleAndOpacity + ')',
+            opacity: scaleAndOpacity,
+            top: top + '%'
+          });
+  		  }
+      };
 		});
 		
 		$('body').delegate('.flake', 'animationiteration webkitAnimationIteration mozAnimationIteration', function(e){
