@@ -103,32 +103,32 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 
 @keyframes snowflakes {
   from { transform: translate3d(0px, 0px, 0px) rotate(0deg); }
-  to { top:100%; transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { transform: translate3d(0px, 1000px, 0px) rotate(360deg); }
 }
 
 @-moz-keyframes snowflakes {
   from { -moz-transform: translate3d(0px, 0px, 0px) rotate(0deg); }
-  to { top:100%; -moz-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { -moz-transform: translate3d(0px, 1000px, 0px) rotate(360deg); }
 }
 
 @-webkit-keyframes snowflakes {
   from { -webkit-transform: translate3d(0px, 0px, 0px); }
-  to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { -webkit-transform: translate3d(0px, 1000px, 0px) rotate(360deg); }
 }
 
 @keyframes snowflakes-counter {
   from { transform: translate3d(0px, 0px, 0px) rotate(360deg); }
-  to { top:100%; transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+  to { transform: translate3d(0px, 1000px, 0px) rotate(0deg); }
 }
 
 @-moz-keyframes snowflakes-counter {
   from { -moz-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
-  to { top:100%; -moz-transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+  to { -moz-transform: translate3d(0px, 1000px, 0px) rotate(0deg); }
 }
 
 @-webkit-keyframes snowflakes-counter {
   from { -webkit-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
-  to { top:100%; -webkit-transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+  to { -webkit-transform: translate3d(0px, 1000px, 0px) rotate(0deg); }
 }
 
 .flake {
@@ -161,6 +161,7 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 
 .cloud {
   position: absolute;
+  left: 100%;
 }
 
 .cloud .fluffy{
@@ -217,78 +218,23 @@ body, html, main, .settings { height: 100%; overflow: hidden;}
 }
 
 /*Time to animate*/
-.x1 {
+.cloud {
 	-webkit-animation: moveclouds 15s linear infinite;
 	-moz-animation: moveclouds 15s linear infinite;
 	-o-animation: moveclouds 15s linear infinite;
 }
 
-/*variable speed, opacity, and position of clouds for realistic effect*/
-.x2 {
-	left: 200px;
-	
-	-webkit-transform: scale(0.6);
-	-moz-transform: scale(0.6);
-	transform: scale(0.6);
-	opacity: 0.6; /*opacity proportional to the size*/
-	
-	/*Speed will also be proportional to the size and opacity*/
-	/*More the speed. Less the time in 's' = seconds*/
-	-webkit-animation: moveclouds 25s linear infinite;
-	-moz-animation: moveclouds 25s linear infinite;
-	-o-animation: moveclouds 25s linear infinite;
-}
-
-.x3 {
-	left: -250px; top: -200px;
-	
-	-webkit-transform: scale(0.8);
-	-moz-transform: scale(0.8);
-	transform: scale(0.8);
-	opacity: 0.8; /*opacity proportional to the size*/
-	
-	-webkit-animation: moveclouds 20s linear infinite;
-	-moz-animation: moveclouds 20s linear infinite;
-	-o-animation: moveclouds 20s linear infinite;
-}
-
-.x4 {
-	left: 470px; top: -250px;
-	
-	-webkit-transform: scale(0.75);
-	-moz-transform: scale(0.75);
-	transform: scale(0.75);
-	opacity: 0.75; /*opacity proportional to the size*/
-	
-	-webkit-animation: moveclouds 18s linear infinite;
-	-moz-animation: moveclouds 18s linear infinite;
-	-o-animation: moveclouds 18s linear infinite;
-}
-
-.x5 {
-	left: -150px; top: -150px;
-	
-	-webkit-transform: scale(0.8);
-	-moz-transform: scale(0.8);
-	transform: scale(0.8);
-	opacity: 0.8; /*opacity proportional to the size*/
-	
-	-webkit-animation: moveclouds 20s linear infinite;
-	-moz-animation: moveclouds 20s linear infinite;
-	-o-animation: moveclouds 20s linear infinite;
-}
-
 @-webkit-keyframes moveclouds {
-	0% {margin-left: 1000px;}
-	100% {margin-left: -1000px;}
+	0% { -webkit-transform: translate3d(0,0,0) }
+	100% { left: -10%; -webkit-transform: translate3d(0,0,0) }
 }
 @-moz-keyframes moveclouds {
-	0% {margin-left: 1000px;}
-	100% {margin-left: -1000px;}
+	0% { left: 100%; -webkit-transform: translate3d(0,0,0) }
+	100% { left: 0%; -webkit-transform: translate3d(0,0,0) }
 }
 @-o-keyframes moveclouds {
-	0% {margin-left: 1000px;}
-	100% {margin-left: -1000px;}
+	0% {right: -200px, left:auto;}
+	100% {left: -200px, right: auto;}
 }
 
 /* CLOUDS END */

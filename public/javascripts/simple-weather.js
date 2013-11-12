@@ -3,6 +3,8 @@ jQuery.fn.random = function() {
     return jQuery(this.eq(randomIndex));
 };
 
+
+
 (function(){
   var index, scroll, times, count, delta, middle, increment, units, bgTimer, precipIntensity = 0;
 	refreshDefaults();
@@ -43,7 +45,7 @@ jQuery.fn.random = function() {
   function selectTime(index, $li, animationSpeed) {
     times.removeClass('active');
     $li.addClass('active');
-		setWeather($li.data('temp'), $li.data('summary'), $li.data('icon'), $li.data('timeClass'), $li.data('precipIntensity'));
+		setWeather($li.data('weather'));
 		scroll.animate({
       left: (index == count ? index : ($li.position().left * -1)) + middle - 25
     }, animationSpeed)
@@ -131,7 +133,7 @@ jQuery.fn.random = function() {
 	
 	function fetchForecast(latitude, longitude) {
 	  $.getJSON('/forecast/' + latitude + ',' + longitude, function(data) {
-		console.log(data);
+	    
 			var timeZone = data.timezone;
 	    units = data.flags.units == 'us' ? 'F' : 'C';
 	    var dayIndexStart = new timezoneJS.Date(data.currently.time * 1000, timeZone).getDay();
@@ -144,7 +146,15 @@ jQuery.fn.random = function() {
 				};
 			});
 	    var currentSunrise = data.daily.data[dayIndex].sunriseTime, currentSunset = data.daily.data[dayIndex].sunsetTime;
-			setWeather(data.currently.temperature, data.currently.summary, data.currently.icon, timeClass(data.currently.time, currentSunrise, currentSunset), data.currently.precipIntensity);
+			setWeather({
+			  temp: data.currently.temperature, 
+			  summary: data.currently.summary, 
+			  icon: data.currently.icon, 
+			  timeClass: timeClass(data.currently.time, currentSunrise, currentSunset), 
+			  precipIntensity: data.currently.precipIntensity,
+			  cloudCover: data.currently.cloudCover,
+			  windSpeed: data.currently.windSpeed
+			});
 			changeBackground();
 			$('.times').html('');
 			var new_items = [], day, prevTimeClass;
@@ -161,15 +171,19 @@ jQuery.fn.random = function() {
 				};
 				
 				$li = $('<li>' + hoursString +'</li>');
-				$li.data('temp', tempObject.temperature);
-				$li.data('precipIntensity', tempObject.precipIntensity);
-				$li.data('summary', tempObject.summary);
 				var icon = tempObject.icon;
 				if (tempObject.windSpeed > 13 && icon != 'wind')
 					icon += ' wind'
-				$li.data('icon', icon);
 				var time = tempObject.time;
-        $li.data('timeClass', timeClass(time, currentSunrise, currentSunset));
+        $li.data('weather', {
+				  temp: tempObject.temperature,
+				  precipIntensity: tempObject.precipIntensity,
+				  summary: tempObject.summary,
+				  cloudCover: tempObject.cloudCover,
+				  icon: icon,
+				  timeClass: timeClass(time, currentSunrise, currentSunset),
+				  windSpeed: tempObject.windSpeed
+				});
         index == 0 &&	$li.addClass('active');
 				new_items.push($li);
 				if(time <= currentSunrise && time+3600 >= currentSunrise) {
@@ -196,13 +210,16 @@ jQuery.fn.random = function() {
 		scroll.css({left:middle})
 	}
 	
-	function setWeather(temp, condition, icon, timeClass, precip) {
-		$('.temperature').html([parseInt(temp, 10),'&deg;',units].join(''))
-    $('.condition').html(condition)
-    icon = icon.replace(/-(day|night)/, '');
+	function setWeather(weather) {
+		$('.temperature').html([parseInt(weather.temp, 10),'&deg;',units].join(''))
+    $('.condition').html(weather.summary)
+    var icon = weather.icon.replace(/-(day|night)/, '');
 		$('body').data('icon', icon);
-    $('body').data('timeClass', timeClass);
-		precipIntensity = precip;
+    $('body').data('timeClass', weather.timeClass);
+    $('body').data('cloudCover', weather.cloudCover);
+    $('body').data('windSpeed', weather.windSpeed);
+		precipIntensity = weather.precipIntensity;
+		$('body').trigger('weatherChange');
 	}
 
 	function geocodePosition(position) {
@@ -281,7 +298,7 @@ jQuery.fn.random = function() {
 	}
 	
 	function randomBetween(low, high) {
-	  return Math.random()*(high-low+1)+(low);
+	  return Math.random()*(high-low)+(low);
 	}
 	
 	$(function(){
@@ -320,6 +337,36 @@ jQuery.fn.random = function() {
 			getLocation();
 			stopEvent(e);
 		})
+		
+		var maxClouds = 20;
+		
+		$('body').on('weatherChange', function(){
+		  var cloudCover = $(this).data('cloudCover');
+		  console.log('cloudCover: ' + cloudCover);
+		  var windSpeed = $(this).data('windSpeed');
+		  console.log('windSpeed: ' + windSpeed);
+      $('.cloud.inserted').remove();
+		  var numClouds = Math.round(maxClouds * cloudCover);
+		  for (var i = 0; i < numClouds; i++){
+        var delay = randomBetween(1,5);
+        var scaleAndOpacity = randomBetween(0.6,0.8);
+        console.log(scaleAndOpacity);
+        var $cloud = $('<div class="cloud inserted"><span class="fluffy"></span></div>');
+        // $cloud.css({
+        //   '-webkit-animation-delay': delay + 's',
+        //   'animation-delay': delay + 's',
+        //   '-moz-animation-delay': delay + 's',
+        //   '-webkit-transform': 'scale(' + scaleAndOpacity + ')',
+        //  '-moz-transform': 'scale(' + scaleAndOpacity + ')',
+        //  transform: 'scale(' + scaleAndOpacity + ')',
+        //  opacity: scaleAndOpacity,
+        // });
+        if (Math.round(Math.random()) == 0) {
+          $cloud.addClass('flip');
+        };
+        console.log($('main').append($cloud));
+		  };
+		});
 		
 		$('body').delegate('.flake', 'animationiteration webkitAnimationIteration mozAnimationIteration', function(e){
 			$(this).css({left: Math.floor(Math.random() * 100) + '%'})
