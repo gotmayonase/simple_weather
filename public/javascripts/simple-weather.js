@@ -1,3 +1,8 @@
+jQuery.fn.random = function() {
+    var randomIndex = Math.floor(Math.random() * this.length);  
+    return jQuery(this.eq(randomIndex));
+};
+
 (function(){
   var index, scroll, times, count, delta, middle, increment, units, bgTimer, precipIntensity = 0;
 	refreshDefaults();
@@ -264,19 +269,19 @@
 		if (!($('.' + className).length > max)) {
 			var $span = $('<span class="' + className + ' inserted"></span>');
 			var delay = randomBetween(0.0,5.0) + 's';
-			$span.css({left: Math.floor(Math.random() * 100) + '%', top: '-200px', '-webkit-animation-delay': delay, 'animation-delay': delay, '-moz-animation-delay': delay})
+			$span.css({left: randomBetween(20,70) + '%', '-webkit-animation-delay': delay, 'animation-delay': delay, '-moz-animation-delay': delay})
 			if (arguments.length == 3) {
 				$span.css(extra_css);
 			};
 			if (Math.round(Math.random()) == 0) {
 			  $span.addClass('x2');
 			};
-			$('main').append($span);
+			$('.cloud').random().prepend($span);
 		};
 	}
 	
 	function randomBetween(low, high) {
-	  return Math.random()*(high + 1)+low;
+	  return Math.random()*(high-low+1)+(low);
 	}
 	
 	$(function(){
@@ -327,7 +332,7 @@
 		})
 		
 		$('body').delegate('.drop', 'animationiteration webkitAnimationIteration mozAnimationIteration', function(e) {
-		  $(this).css({left: Math.floor(Math.random() * 100) + '%'})
+		  $(this).css({left: randomBetween(20,70) + '%'})
 			randomlyInsertSpan('drop', Math.max(18, precipIntensity * 1000));
 		})
 		
