@@ -347,7 +347,8 @@ jQuery.fn.random = function() {
 		  console.log('windSpeed: ' + windSpeed);
 		  var cloudsToGen = Math.round(maxClouds * cloudCover);
 		  var existingClouds = $('.cloud.generated').length;
-		  
+      var ratio = $(document).width() / (windSpeed * 8);
+      console.log(ratio);
 		  if (existingClouds > cloudsToGen) {
 		    for (var i=0; i < (existingClouds - cloudsToGen); i++) {
           $('.clouds.generated').random().remove();
@@ -357,7 +358,7 @@ jQuery.fn.random = function() {
           var delay = Math.round(randomBetween(1,10));
           var scaleAndOpacity = Math.round(randomBetween(0.6,1.0)*10)/10;
           var top = Math.floor(randomBetween(0,30))
-          var duration = randomBetween(15,30);
+          var duration = Math.max(Math.min(40-windSpeed,30), 10) + Math.floor(randomBetween(-5,5));
           var $cloud = $("<div class='cloud generated'><span class='fluffy'></span></div>");
           if (Math.round(Math.random()) == 0) {
             $cloud.addClass('flip');
@@ -373,7 +374,8 @@ jQuery.fn.random = function() {
             '-moz-animation-duration': duration + 's',
             transform: 'scale(' + scaleAndOpacity + ')',
             opacity: scaleAndOpacity,
-            top: top + '%'
+            top: top + '%',
+            left: Math.floor(randomBetween(100,200)) + '%'
           });
   		  }
       };
