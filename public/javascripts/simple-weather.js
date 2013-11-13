@@ -39,7 +39,6 @@ jQuery.fn.random = function() {
 			};
       selectTime(index, $li, 0);
     }
-    changeBackground();
   }
   
   function selectTime(index, $li, animationSpeed) {
@@ -67,7 +66,6 @@ jQuery.fn.random = function() {
 		};
 		index = times.index($li);
     selectTime(index, $li, 400);
-    changeBackground();
 	})
 
 	function changeBackground() {
@@ -155,7 +153,6 @@ jQuery.fn.random = function() {
 			  cloudCover: data.currently.cloudCover,
 			  windSpeed: data.currently.windSpeed
 			});
-			changeBackground();
 			$('.times').html('');
 			var new_items = [], day, prevTimeClass;
 	    $.each(data.hourly.data, function(index, tempObject) {
@@ -219,6 +216,7 @@ jQuery.fn.random = function() {
     $('body').data('cloudCover', weather.cloudCover);
     $('body').data('windSpeed', weather.windSpeed);
 		precipIntensity = weather.precipIntensity;
+		changeBackground();
 		$('body').trigger('weatherChange');
 	}
 
@@ -338,47 +336,54 @@ jQuery.fn.random = function() {
 			stopEvent(e);
 		})
 		
-		var maxClouds = 40;
-		
 		$('body').on('weatherChange', function(){
 		  var cloudCover = $(this).data('cloudCover');
-		  console.log('cloudCover: ' + cloudCover);
+		  if (cloudCover > 0) {
+		    $(this).addClass('cloudy');
+		    var _scale = cloudCover * 2;
+		    $('.cloud').css({
+		      '-webkit-transform': 'scale(' + _scale + ')',
+		      'transform': 'scale(' + _scale + ')',
+		      '-moz-transform': 'scale(' + _scale + ')'
+		    })
+		  } else {
+		    $(this).removeClass('cloudy');
+		  }
 		  var windSpeed = $(this).data('windSpeed');
-		  console.log('windSpeed: ' + windSpeed);
-		  var cloudsToGen = Math.round(maxClouds * cloudCover);
-		  var existingClouds = $('.cloud.generated').length;
       var ratio = $(document).width() / (windSpeed * 8);
-      console.log(ratio);
-		  if (existingClouds > cloudsToGen) {
-		    for (var i=0; i < (existingClouds - cloudsToGen); i++) {
-          $('.clouds.generated').random().remove();
-		    };
-		  } else if (existingClouds < cloudsToGen) {
-		    for (var i = 0; i < (cloudsToGen - existingClouds); i++){
-          var delay = Math.round(randomBetween(1,10));
-          var scaleAndOpacity = Math.round(randomBetween(0.6,1.0)*10)/10;
-          var top = Math.floor(randomBetween(0,30))
-          var duration = Math.max(Math.min(40-windSpeed,30), 10) + Math.floor(randomBetween(-5,5));
-          var $cloud = $("<div class='cloud generated'><span class='fluffy'></span></div>");
-          if (Math.round(Math.random()) == 0) {
-            $cloud.addClass('flip');
-          };
-          $('main').append($cloud);
-          $cloud.css({
-            '-webkit-animation-delay': delay + 's',
-            'animation-delay': delay + 's',
-            '-moz-animation-delay': delay + 's',
-            '-webkit-transform': 'scale(' + scaleAndOpacity + ')',
-            '-moz-transform': 'scale(' + scaleAndOpacity + ')',
-            '-webkit-animation-duration': duration + 's',
-            '-moz-animation-duration': duration + 's',
-            transform: 'scale(' + scaleAndOpacity + ')',
-            opacity: scaleAndOpacity,
-            top: top + '%',
-            left: Math.floor(randomBetween(100,200)) + '%'
-          });
-  		  }
-      };
+		  // if (existingClouds > cloudsToGen) {
+		  //        for (var i=0; i < (existingClouds - cloudsToGen); i++) {
+		  //          var $cloud = $('.cloud.generated').random();
+		  //          $cloud.fadeOut(function(){
+		  //            $cloud.remove();
+		  //          })
+		  //        };
+		  //      } else if (existingClouds < cloudsToGen) {
+		  //        for (var i = 0; i < (cloudsToGen - existingClouds); i++){
+		  //           var delay = Math.round(randomBetween(1,10));
+		  //           var scaleAndOpacity = Math.round(randomBetween(0.6,1.0)*10)/10;
+		  //           var top = Math.floor(randomBetween(0,30))
+		  //           var duration = Math.max(Math.min(40-windSpeed,30), 10) + Math.floor(randomBetween(-5,5));
+		  //           var $cloud = $("<div class='cloud generated'><span class='fluffy'></span></div>");
+		  //           if (Math.round(Math.random()) == 0) {
+		  //             $cloud.addClass('flip');
+		  //           };
+		  //           $('main').append($cloud);
+		  //           $cloud.css({
+		  //             '-webkit-animation-delay': delay + 's',
+		  //             'animation-delay': delay + 's',
+		  //             '-moz-animation-delay': delay + 's',
+		  //             '-webkit-transform': 'scale(' + scaleAndOpacity + ')',
+		  //             '-moz-transform': 'scale(' + scaleAndOpacity + ')',
+		  //             '-webkit-animation-duration': duration + 's',
+		  //             '-moz-animation-duration': duration + 's',
+		  //             transform: 'scale(' + scaleAndOpacity + ')',
+		  //             opacity: scaleAndOpacity,
+		  //             top: top + '%',
+		  //             left: Math.floor(randomBetween(100,200)) + '%'
+		  //           });
+		  //        }
+      // };
 		});
 		
 		$('body').delegate('.flake', 'animationiteration webkitAnimationIteration mozAnimationIteration', function(e){
