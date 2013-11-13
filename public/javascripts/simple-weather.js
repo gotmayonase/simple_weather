@@ -215,7 +215,7 @@ jQuery.fn.random = function() {
     $('body').data('timeClass', weather.timeClass);
     $('body').data('cloudCover', weather.cloudCover);
     $('body').data('windSpeed', weather.windSpeed);
-		precipIntensity = weather.precipIntensity;
+		precipIntensity = units == 'us' ? weather.precipIntensity : weather.precipIntensity / 25.4;
 		changeBackground();
 		$('body').trigger('weatherChange');
 	}
@@ -350,40 +350,16 @@ jQuery.fn.random = function() {
 		    $(this).removeClass('cloudy');
 		  }
 		  var windSpeed = $(this).data('windSpeed');
-      var ratio = $(document).width() / (windSpeed * 8);
-		  // if (existingClouds > cloudsToGen) {
-		  //        for (var i=0; i < (existingClouds - cloudsToGen); i++) {
-		  //          var $cloud = $('.cloud.generated').random();
-		  //          $cloud.fadeOut(function(){
-		  //            $cloud.remove();
-		  //          })
-		  //        };
-		  //      } else if (existingClouds < cloudsToGen) {
-		  //        for (var i = 0; i < (cloudsToGen - existingClouds); i++){
-		  //           var delay = Math.round(randomBetween(1,10));
-		  //           var scaleAndOpacity = Math.round(randomBetween(0.6,1.0)*10)/10;
-		  //           var top = Math.floor(randomBetween(0,30))
-		  //           var duration = Math.max(Math.min(40-windSpeed,30), 10) + Math.floor(randomBetween(-5,5));
-		  //           var $cloud = $("<div class='cloud generated'><span class='fluffy'></span></div>");
-		  //           if (Math.round(Math.random()) == 0) {
-		  //             $cloud.addClass('flip');
-		  //           };
-		  //           $('main').append($cloud);
-		  //           $cloud.css({
-		  //             '-webkit-animation-delay': delay + 's',
-		  //             'animation-delay': delay + 's',
-		  //             '-moz-animation-delay': delay + 's',
-		  //             '-webkit-transform': 'scale(' + scaleAndOpacity + ')',
-		  //             '-moz-transform': 'scale(' + scaleAndOpacity + ')',
-		  //             '-webkit-animation-duration': duration + 's',
-		  //             '-moz-animation-duration': duration + 's',
-		  //             transform: 'scale(' + scaleAndOpacity + ')',
-		  //             opacity: scaleAndOpacity,
-		  //             top: top + '%',
-		  //             left: Math.floor(randomBetween(100,200)) + '%'
-		  //           });
-		  //        }
-      // };
+      var duration = 40-windSpeed;
+      duration = Math.max(Math.min(30, duration),10);
+      console.log(windSpeed);
+      $('.cloud').each(function(){
+        _duration = duration + Math.round(randomBetween(-5,5));
+        $(this).css({
+          '-webkit-animation-duration': _duration + 's',
+          '-moz-animation-duration': _duration + 's',
+        });
+      });
 		});
 		
 		$('body').delegate('.flake', 'animationiteration webkitAnimationIteration mozAnimationIteration', function(e){
