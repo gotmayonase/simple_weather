@@ -29,8 +29,27 @@ if (cluster.isMaster) {
   var express = require('express');
   var Forecast = require('forecast.io');
   var app = express();
+  var assetManager = require('connect-assetmanager');
   var backupData;
   forecast = new Forecast({APIKey: APIKEY});
+
+  var assetManagerGroups = {
+    'css': {
+      'route': /static\/stylesheets\/styles.css/
+      , 'path': './public/stylesheets/'
+      , 'dataType': 'css'
+      , 'files': [ 'pure-min.css', 'simple-weather.css' ]
+    },
+    'js': {
+      'route': /static\/js\/script.js/
+      , 'path': './public/javascripts/'
+      , 'dataType': 'js'
+      , 'files': [ 'date.js', 'jquery.min.js', 'simple-weather.js' ]
+    }
+  };
+  
+  var assetsManagerMiddleware = assetManager(assetManagerGroups);
+  app.use(assetsManagerMiddleware); 
 
   app.use(express.static(__dirname + '/public'));
   // app.use(express.logger());
