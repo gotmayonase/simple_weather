@@ -35,13 +35,13 @@ if (cluster.isMaster) {
 
   var assetManagerGroups = {
     'css': {
-      'route': /static\/stylesheets\/styles.css/
+      'route': /stylesheets\/min.css/
       , 'path': './public/stylesheets/'
       , 'dataType': 'css'
-      , 'files': [ 'pure-min.css', 'simple-weather.css' ]
+      , 'files': [ 'font-awesome.min.css', 'simple-weather.css' ]
     },
     'js': {
-      'route': /static\/js\/script.js/
+      'route': /javascripts\/min.js/
       , 'path': './public/javascripts/'
       , 'dataType': 'js'
       , 'files': [ 'date.js', 'jquery.min.js', 'simple-weather.js' ]
@@ -52,6 +52,7 @@ if (cluster.isMaster) {
   app.use(assetsManagerMiddleware); 
 
   app.use(express.static(__dirname + '/public'));
+
   // app.use(express.logger());
   app.use(express.bodyParser());
 

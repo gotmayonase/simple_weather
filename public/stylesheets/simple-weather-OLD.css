@@ -1,0 +1,463 @@
+@font-face {
+  font-family: 'Quicksand';
+  src: url(/fonts/Quicksand-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Weather';
+  src: url(/fonts/weather.otf);
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  font-weight: bold;
+  src: url(/fonts/Quicksand-Bold.ttf);
+}
+
+body, html, main, .settings { height: 100%; overflow: hidden;}
+
+.night main {
+  background: #00001E;
+  color: white;
+}
+
+.day main {
+  background: #3498db;
+  color: #00001E;  
+}
+
+.day.rain main, .day.cloudy main {
+  background: #aaa;
+}
+
+.day.partly-cloudy main {
+  background: #99aabb;
+}
+
+.weatherBG {
+	position: fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+}
+
+/*ICONS*/
+
+.weather-icon {
+  display: block;
+  font-family: 'Weather';
+  font-size: 160px;
+  position: absolute;
+}
+
+/* RAIN START */
+@keyframes raindrops {
+  from { transform: translate3d(0px, 0px, 0px) rotate(45deg); }
+  to { transform: translate3d(0px, 2000ppx, 0px) rotate(45deg); opacity: 0;}
+}
+
+@-webkit-keyframes raindrops {
+  0% { -webkit-transform: translate3d(0px, 0px, 0px) rotate(45deg);}
+  100% { -webkit-transform: translate3d(0px, 2000px, 0px) rotate(45deg); opacity: 0;}
+}
+
+@keyframes windy-raindrops {
+  from { transform: translate3d(0px, 0px, 0px) rotate(60deg);}
+  to { transform: translate3d(-100px, 1000px, 0px) rotate(60deg); opacity: 0}
+}
+
+@-webkit-keyframes windy-raindrops {
+  from { -webkit-transform: translate3d(0px, 0px, 0px) rotate(60deg);}
+  to { -webkit-transform: translate3d(-100px, 1000px, 0px) rotate(60deg); opacity: 0}
+}
+
+.drop {
+  z-index: 999;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  bottom: 0px;
+  background: #79dbfc;
+  border-radius: 0px 50% 50% 50%;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.rain .drop {
+  -webkit-animation: raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
+	animation: raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
+}
+
+.wind.rain .drop {
+	-webkit-animation: windy-raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
+	animation: windy-raindrops 2.5s infinite cubic-bezier(0.33, 0, 0.66, 0.33);
+}
+
+/* RAIN END */
+
+/* SNOW START */
+
+@keyframes snowflakes {
+  from { transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+  to { transform: translate3d(0px, 1000px, 0px) rotate(360deg); }
+}
+
+@-moz-keyframes snowflakes {
+  from { -moz-transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+  to { -moz-transform: translate3d(0px, 1000px, 0px) rotate(360deg); }
+}
+
+@-webkit-keyframes snowflakes {
+  from { -webkit-transform: translate3d(0px, 0px, 0px); }
+  to { -webkit-transform: translate3d(0px, 1000px, 0px) rotate(360deg); }
+}
+
+@keyframes snowflakes-counter {
+  from { transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { transform: translate3d(0px, 1000px, 0px) rotate(0deg); }
+}
+
+@-moz-keyframes snowflakes-counter {
+  from { -moz-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { -moz-transform: translate3d(0px, 1000px, 0px) rotate(0deg); }
+}
+
+@-webkit-keyframes snowflakes-counter {
+  from { -webkit-transform: translate3d(0px, 0px, 0px) rotate(360deg); }
+  to { -webkit-transform: translate3d(0px, 1000px, 0px) rotate(0deg); }
+}
+
+.flake {
+  opacity: 0.7;
+  z-index: 999;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+	opacity: 0.8;
+	-webkit-transform-origin: left -30px;
+	-moz-transform-origin: left - 30px;
+}
+
+.snow .flake {
+  -webkit-animation: snowflakes 8s linear infinite;
+	animation: snowflakes 8s linear infinite;
+	-moz-animation: snowflakes 8s linear infinite;
+}
+
+.snow .flake.x2 {
+  -webkit-animation: snowflakes-counter 8s linear infinite;
+	animation: snowflakes-counter 8s linear infinite;
+	-moz-animation: snowflakes-counter 8s linear infinite;
+}
+/* SNOW END*/
+
+/* CLOUDS START */
+
+.cloud {
+  position: absolute;
+  left: 100%;
+  display: none;
+}
+
+.cloud .fluffy{
+  display: block;
+  background: #eee;
+  width: 200px; height: 60px;
+  border-radius: 200px;
+	-moz-border-radius: 200px;
+	-webkit-border-radius: 200px;
+  z-index: 9996;
+}
+
+.cloud .fluffy:before, .cloud .fluffy:after {
+	content: '';
+	position: absolute; 
+  background: #eee;
+	width: 100px; height: 80px;
+  top: -15px; left: 10px;
+  z-index: 9996;
+	
+	border-radius: 100px;
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+	
+	-webkit-transform: rotate(30deg);
+	transform: rotate(30deg);
+	-moz-transform: rotate(30deg);
+}
+
+.cloud .fluffy:after {
+	width: 120px; height: 120px;
+	top: -55px; left: auto; right: 15px;
+	z-index: 9996;
+}
+
+.cloud.flip .fluffy:before {
+  width: 120px; height: 120px;
+	top: -55px; left: 15px; right: auto;
+	z-index: 9996;
+}
+
+.cloud.flip .fluffy:after {
+  width: 100px; height: 80px;
+  top: -15px;
+  left: auto;
+  right: 10px;
+  -webkit-transform: rotate(-30deg);
+	transform: rotate(-30deg);
+	-moz-transform: rotate(-30deg);
+	z-index: 9996;
+}
+
+.night .cloud .fluffy, .night .cloud .fluffy:before, .night .cloud .fluffy:after {
+  background: #465b70;
+}
+
+/*Time to animate*/
+.cloudy .cloud {
+  display: block;
+  -webkit-animation: moveclouds 20s linear infinite;
+  -moz-animation: moveclouds 20s linear infinite;
+  -o-animation: moveclouds 20s linear infinite;
+}
+
+.cloud:nth-of-type(odd) {
+  opacity: 0.8;
+}
+
+.cloud:nth-of-type(even) {
+  opacity: 0.9;
+}
+
+@-webkit-keyframes moveclouds {
+	0% {  }
+	100% { left: -20%; }
+}
+@-moz-keyframes moveclouds {
+	0% {  }
+	100% { left: -20%;  }
+}
+@-o-keyframes moveclouds {
+	0% {  }
+	100% { left: -20%; }
+}
+
+/* CLOUDS END */
+
+.weather-icon.sun:before {
+  content: '1';
+}
+
+.weather-icon.moon:before {
+  content: '6';
+}
+
+.weather-icon.lightning:before {
+  content: '4';
+}
+
+.weather-icon.clouds:before {
+  content: '3';
+}
+
+.weather-icon.sunrise:before {
+  content: '9';
+}
+
+.weather-icon.sunset:before {
+  content: '0';
+}
+
+/*END ICONS*/
+
+.settings {
+  font-family: 'Quicksand';  
+  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;  
+  z-index:1;
+  background: #2c3e50;
+  color:#fff;
+  padding:0 20px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+  -webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
+}
+
+.settings h2 {
+  font-weight: normal;
+}
+
+.settings input[type='text'] {
+  width: 100%;
+  margin: 0 0 10px;
+  font-size: 1em;
+  background: transparent;
+  border: 0;
+  border-bottom: solid 1px #fff;
+  border-radius: 0;  
+  box-shadow: none;
+  color:#fff;
+}
+
+.settings .button-group {
+  float: right;
+}
+
+main {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+	position: relative;
+}
+
+.open main {
+  -webkit-transform: translate3d(300px, 0, 0); 
+  -moz-transform: translate3d(300px, 0, 0); 
+  transform: translate3d(300px,0,0);
+}
+
+.open .settings {
+  -webkit-transform: translate3d(0, 0, 0); 
+  -moz-transform: translate3d(0, 0, 0); 
+}
+
+#loading {
+	position: absolute;
+	top: 40%;
+	left: 0;
+	right: 0;
+	text-align: center
+}
+
+#loading span {
+	font-family: 'Quicksand';
+	color: #fff;
+	display: block;
+	margin-bottom: 2px;
+}
+
+.current {
+	width: 300px;
+	margin: 50px auto 0px;
+	padding: 20px;
+	border-radius: 10px;
+	display: block;
+	z-index: 9998;
+}
+
+.current span{  
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  letter-spacing: -2px;
+  display: block;
+}
+
+.current .temperature {
+  font-size:7em;
+  letter-spacing: normal;
+}
+
+.time-scroll {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+  padding: 40px 0 25px;  
+}
+
+.time-wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 80px;
+	overflow: none;
+}
+
+.times {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+	padding: 0;
+  list-style: none;
+	width: 999em;
+	position: relative;
+}
+
+.times li {
+  width: 45px;
+  display: block;
+  float: left;
+  text-align: right;
+  -webkit-transform: rotate(-50deg);
+  -moz-transform: rotate(-50deg);
+	cursor: pointer;
+	opacity: 0.5;
+	position: relative;
+}
+
+.times li.sunset, .times li.sunrise {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  font-family: 'Weather';
+  font-size: 48px;
+  position: relative;
+}
+
+.times li span {
+  display: block;
+  position: absolute;
+  top: -60px;
+}
+
+.times li.sunset {
+  color: orange;
+}
+
+.times li.sunrise {
+  color: yellow;
+}
+
+.times .dayBreak {
+	font-weight: bold;
+	font-size: 1.5em;
+	text-align: right;
+	opacity: 1.0;
+}
+
+.times .active {
+	font-weight: bold;
+	font-size: 1.2em;
+	opacity: 1.0;
+}
+
+#pinButton {
+	position: absolute;
+	left: 0px;
+	top: 10px;
+	display: block;
+	background: #2c3e50;
+	padding:10px 10px 7px;
+	border-radius: 0 5px 5px 0;
+	z-index: 9999;
+}
+
+#pinButton svg {
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+}
+
+.open #pinButton svg {
+	-webkit-transform: rotate(180deg);	
+	-moz-transform: rotate(180deg);	
+}

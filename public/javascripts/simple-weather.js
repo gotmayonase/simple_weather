@@ -323,10 +323,6 @@ jQuery.fn.random = function() {
 	    return false;
 	  });
 	
-		$('#pinButton').click(function(e){
-			$('body').toggleClass('open');
-			stopEvent(e);
-		})
 	
 		$('#currentLocation').click(function(){
 			$('body').removeClass('open');
@@ -381,3 +377,17 @@ jQuery.fn.random = function() {
 
 	$(window).on('resize', refreshDefaults)
 })();
+
+
+
+$(function(){
+
+	var $body = $('body')
+
+	$('.hidden-panel-button, .close-button').on('click', function(){
+		$body.toggleClass('hidden-panel-open')
+	})
+
+
+
+})

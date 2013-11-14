@@ -1,47 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/static/stylesheets/styles.css">   
-    <!-- <link rel="stylesheet" href="/stylesheets/simple-weather.css?version=2">   -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Simple Weather</title>
+    <meta name="description" content="An app providing you with simple weather forcasting.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">    
+    <link rel="stylesheet" href="stylesheets/min.css">   
   </head>
   <body>
-    <div class="settings">
-      <h2>Location</h2>
-      <form class="pure-form">
-        <fieldset>        
-          <input type="text" id="searchField" placeholder="Enter location">
+    <div class="hidden-panel">
+      <h2 class="title">Location</h2>
+      <form class="location-form">
+        <fieldset>
+          <input type="text" id="query" name="query" placeholder="Enter a location">
           <div class="button-group">
-            <button type="submit" class="pure-button">Search</button>
-            <button type="button" class="pure-button" id="currentLocation">Use Current</button>
+            <button type="submit" class="button">Search</button>
+            <button type="button" class="button" id="current-location-button">Use Current</button>
           </div>
         </fieldset>
+        <span class="error"></span>
       </form>
-      <span class="error"></span>
+      <a class="hidden-panel-button">
+        <span class="fa fa-cog"></span>
+      </a>
+      <a class="close-button fa fa-times"></a>
     </div>
     
-    <main role="main" class="main">
-      
-      <div class="cloud" style="top: 100px; left: 100%">
-        <span class="drop" style="left: 50%"></span>
-        <span class="flake" style="left: 50%"></span>
-        <span class="fluffy"></span>
-      </div>
-      
-      <div class="cloud"      style="top: 10%; left: 150%; -webkit-animation-delay: 1s"><span class="fluffy"></span></div>
-      <div class="cloud flip" style="top: 15%; left: 180%; -webkit-animation-delay: 1.5s"><span class="fluffy"></span></div>
-      <div class="cloud"      style="top: 20%; left: 120%; -webkit-animation-delay: 2s"><span class="fluffy"></span></div>
-      <div class="cloud"      style="top: 25%; left: 130%; -webkit-animation-delay: 2.5s"><span class="fluffy"></span></div>
-      <div class="cloud flip" style="top: 30%; left: 140%; -webkit-animation-delay: 3s"><span class="fluffy"></span></div>
-      <div class="cloud flip" style="top: 22%; left: 200%; -webkit-animation-delay: 3.5s"><span class="fluffy"></span></div>
-      <div class="cloud"      style="top: 5%;  left: 160%; -webkit-animation-delay: 4s"><span class="fluffy"></span></div>
-
-      <div class="pure-g-r">    
-        <div class="pure-u-1 current">
-          <div class="bg"></div>
-          <span class="location"></span>
-          <span class="temperature"></span>
-          <span class="condition"></span>
-        </div>
+    <main role="main" class="main">    
+      <div class="current-condition">  
+        <span class="location"></span>
+        <span class="temperature"></span>
+        <span class="condition"></span>
       </div>
     
       <div class="time-wrapper">
@@ -51,39 +41,22 @@
         </div>
       </div>
     
-      <a href="#" id="pinButton">
-        <svg width="24px" height="24px" viewBox="0 0 429 429" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-          <g id="1383728350_54" sketch:type="MSLayerGroup" fill="#FFF">
-              <path d="M61.501,257.933 C64.953,270.194 69.859,281.826 76.034,292.63 L48.778,322.434 C40.97,330.252 40.97,342.879 48.778,350.693 L78.306,380.221 C86.123,388.031 98.749,388.031 106.565,380.221 L136.368,352.967 C147.175,359.141 158.806,364.047 171.069,367.496 L173.616,408.021 C173.616,419.101 182.522,428.008 193.605,428.008 L235.396,428.008 C246.476,428.008 255.383,419.101 255.383,408.021 L257.919,367.496 C270.192,364.047 281.823,359.141 292.632,352.967 L322.432,380.221 C330.249,388.031 342.878,388.031 350.692,380.221 L380.22,350.693 C388.03,342.88 388.03,330.253 380.22,322.434 L352.965,292.63 C359.139,281.825 364.045,270.193 367.495,257.933 L408.019,255.384 C419.099,255.384 428.006,246.478 428.006,235.398 L428.006,193.607 C428.006,182.521 419.099,173.616 408.019,173.616 L367.495,171.075 C364.045,158.807 359.139,147.177 352.965,136.366 L380.22,106.567 C388.03,98.751 388.03,86.125 380.22,78.307 L350.692,48.779 C342.879,40.967 330.25,40.967 322.432,48.779 L292.632,76.035 C281.823,69.861 270.193,64.954 257.919,61.502 L255.383,20.981 C255.383,9.895 246.476,0.99 235.396,0.99 L193.605,0.99 C182.522,0.99 173.616,9.895 173.616,20.981 L171.069,61.502 C158.806,64.954 147.175,69.86 136.368,76.035 L106.565,48.779 C98.749,40.967 86.123,40.967 78.306,48.779 L48.778,78.307 C40.97,86.125 40.97,98.751 48.778,106.567 L76.034,136.366 C69.859,147.178 64.953,158.808 61.501,171.075 L20.98,173.616 C9.898,173.616 0.991,182.521 0.991,193.607 L0.991,235.398 C0.991,246.478 9.898,255.384 20.98,255.384 L61.501,257.933 L61.501,257.933 L61.501,257.933 L61.501,257.933 Z M214.5,119.103 C267.193,119.103 309.896,161.808 309.896,214.501 C309.896,267.195 267.194,309.897 214.5,309.897 C161.806,309.897 119.102,267.195 119.102,214.501 C119.102,161.807 161.806,119.103 214.5,119.103 C214.5,119.103 161.806,119.103 214.5,119.103 L214.5,119.103 L214.5,119.103 Z M214.5,119.103" id="Shape" sketch:type="MSShapeGroup"></path>
-          </g>
-        </svg>
-      </a>
-    </main>
-
-      <div id="loading">
-        <div style="background:#2c3e50; display:inline-block; padding:0 20px; border-radius:10px">
-        <svg width="120px" height="120px" viewBox="0 0 52 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <g>
-            <g fill="#FFF">
-              <path d="M13.048,20.614 C12.791,19.947 12.645,19.225 12.645,18.468 C12.645,15.16 15.337,12.468 18.645,12.468 C19.401,12.468 20.123,12.614 20.79,12.871 C21.913,11.859 23.172,11.027 24.533,10.397 C22.88,9.189 20.849,8.467 18.646,8.467 C13.124,8.467 8.646,12.945 8.646,18.467 C8.646,20.512 9.263,22.412 10.316,23.996 C11.029,22.726 11.955,21.583 13.048,20.614 C13.048,20.614 11.955,21.583 13.048,20.614 L13.048,20.614 L13.048,20.614 Z M13.048,20.614"></path>
-            </g>
-            <g fill="#FFF">
-              <path d="M20.645,3.469 C20.645,5.119 19.745,6.469 18.645,6.469 C17.545,6.469 16.645,5.119 16.645,3.469 C16.645,1.819 17.545,0.469 18.645,0.469 C19.745,0.469 20.645,1.819 20.645,3.469 C20.645,3.469 20.645,1.819 20.645,3.469 Z M30.7682975,9.31906138 C29.6015713,10.4857876 28.0105811,10.8039856 27.2327636,10.0261682 C26.4549462,9.2483507 26.7731442,7.65736044 27.9398704,6.49063425 C29.1065966,5.32390806 30.6975868,5.00571001 31.4754043,5.78352747 C32.2532218,6.56134493 31.9350237,8.15233519 30.7682975,9.31906138 C30.7682975,9.31906138 31.9350237,8.15233519 30.7682975,9.31906138 Z M33.7899318,20.6139318 C32.1399318,20.6139318 30.7899318,19.7139318 30.7899318,18.6139318 C30.7899318,17.5139318 32.1399318,16.6139318 33.7899318,16.6139318 C35.4399318,16.6139318 36.7899318,17.5139318 36.7899318,18.6139318 C36.7899318,19.7139318 35.4399318,20.6139318 33.7899318,20.6139318 C33.7899318,20.6139318 35.4399318,20.6139318 33.7899318,20.6139318 Z M27.9398704,30.7372293 C26.7731442,29.5705031 26.4549462,27.9795128 27.2327636,27.2016954 C28.0105811,26.4238779 29.6015713,26.742076 30.7682975,27.9088022 C31.9350237,29.0755283 32.2532218,30.6665186 31.4754043,31.4443361 C30.6975868,32.2221535 29.1065966,31.9039555 27.9398704,30.7372293 C27.9398704,30.7372293 29.1065966,31.9039555 27.9398704,30.7372293 Z M16.645,33.7588635 C16.645,32.1088635 17.545,30.7588635 18.645,30.7588635 C19.745,30.7588635 20.645,32.1088635 20.645,33.7588635 C20.645,35.4088635 19.745,36.7588635 18.645,36.7588635 C17.545,36.7588635 16.645,35.4088635 16.645,33.7588635 C16.645,33.7588635 16.645,35.4088635 16.645,33.7588635 Z M6.52170248,27.9088022 C7.68842867,26.742076 9.27941893,26.4238779 10.0572364,27.2016954 C10.8350538,27.9795128 10.5168558,29.5705031 9.35012961,30.7372293 C8.18340342,31.9039555 6.59241316,32.2221535 5.8145957,31.4443361 C5.03677824,30.6665186 5.35497629,29.0755283 6.52170248,27.9088022 C6.52170248,27.9088022 5.35497629,29.0755283 6.52170248,27.9088022 Z M3.50006823,16.6139318 C5.15006823,16.6139318 6.50006823,17.5139318 6.50006823,18.6139318 C6.50006823,19.7139318 5.15006823,20.6139318 3.50006823,20.6139318 C1.85006823,20.6139318 0.500068231,19.7139318 0.500068231,18.6139318 C0.500068231,17.5139318 1.85006823,16.6139318 3.50006823,16.6139318 C3.50006823,16.6139318 1.85006823,16.6139318 3.50006823,16.6139318 Z M9.35012961,6.49063425 C10.5168558,7.65736044 10.8350538,9.2483507 10.0572364,10.0261682 C9.27941893,10.8039856 7.68842867,10.4857876 6.52170248,9.31906138 C5.35497629,8.15233519 5.03677824,6.56134493 5.8145957,5.78352747 C6.59241316,5.00571001 8.18340342,5.32390806 9.35012961,6.49063425 C9.35012961,6.49063425 8.18340342,5.32390806 9.35012961,6.49063425 Z M9.35012961,6.49063425"></path>
-              <animateTransform attributeName="transform" type="rotate" from="0,18,19" to="360,18,19" dur="5s" repeatDur="indefinite"/>
-            </g>
-            <g>
-              <path d="M43.6837866,21.6060672 C43.6826826,21.5928186 40.0183347,20.9756537 36.4643921,23.4939958 C37.912908,20.9756537 39.8803283,19.2853504 43.2245011,18.9430944 C41.6688921,13.2384588 36.4732245,9.03754179 30.2728697,9.03754179 C25.3797122,9.03754179 21.1037197,11.6574567 18.7520894,15.5658 C21.7650467,15.6971821 24.9414036,17.9726328 26.9275928,20.5406573 C25.0473926,19.085517 22.6935542,18.210004 20.13105,18.210004 C19.2036465,18.210004 18.3071565,18.3369699 17.4459961,18.55226 C17.443788,18.5279709 17.4360596,18.5058899 17.4338515,18.4804967 C17.4250191,18.5069939 17.4139786,18.5323871 17.4062502,18.5599884 C12.5793359,19.7777575 9,24.1354499 9,29.341054 C9,35.4862062 13.9836897,40.471 20.13105,40.471 L42.1447385,40.471 C47.3911925,40.471 51.644,36.2170885 51.644,30.9717385 C51.645104,26.2475009 48.1960463,22.3413657 43.6837866,21.6060672 C43.6837866,21.6060672 48.1960463,22.3413657 43.6837866,21.6060672 L43.6837866,21.6060672 L43.6837866,21.6060672 Z M43.6837866,21.6060672" id="Shape" fill="transparent"></path>
-              <path d="M42.434,23.384 C42.433,23.372 39.114,22.813 35.895,25.094 C37.207,22.813 38.989,21.282 42.018,20.972 C40.609,15.805 35.903,12 30.287,12 C25.855,12 21.982,14.373 19.852,17.913 C22.581,18.032 25.458,20.093 27.257,22.419 C25.554,21.101 23.422,20.308 21.101,20.308 C20.261,20.308 19.449,20.423 18.669,20.618 C18.667,20.596 18.66,20.576 18.658,20.553 C18.65,20.577 18.64,20.6 18.633,20.625 C14.261,21.728 11.019,25.675 11.019,30.39 C11.019,35.956 15.533,40.471 21.101,40.471 L41.04,40.471 C45.792,40.471 49.644,36.618 49.644,31.867 C49.645,27.588 46.521,24.05 42.434,23.384 C42.434,23.384 46.521,24.05 42.434,23.384 L42.434,23.384 L42.434,23.384 Z M42.434,23.384" id="Shape" fill="#FFF"></path>
-            </g>
-          </g>
-        </svg>
-        <br />
-        <span>Loading your Simple Weather forecast</span>
-        <br />
-        </div>
-      </div>    
-    
+      <div class="entities">
+        <div class="cloud" style="top: 100px; left: 100%">
+          <span class="drop" style="left: 50%"></span>
+          <span class="flake" style="left: 50%"></span>
+          <span class="fluffy"></span>
+        </div>        
+        <div class="cloud"      style="top: 10%; left: 150%; -webkit-animation-delay: 1s"><span class="fluffy"></span></div>
+        <div class="cloud flip" style="top: 15%; left: 180%; -webkit-animation-delay: 1.5s"><span class="fluffy"></span></div>
+        <div class="cloud"      style="top: 20%; left: 120%; -webkit-animation-delay: 2s"><span class="fluffy"></span></div>
+        <div class="cloud"      style="top: 25%; left: 130%; -webkit-animation-delay: 2.5s"><span class="fluffy"></span></div>
+        <div class="cloud flip" style="top: 30%; left: 140%; -webkit-animation-delay: 3s"><span class="fluffy"></span></div>
+        <div class="cloud flip" style="top: 22%; left: 200%; -webkit-animation-delay: 3.5s"><span class="fluffy"></span></div>
+        <div class="cloud"      style="top: 5%;  left: 160%; -webkit-animation-delay: 4s"><span class="fluffy"></span></div>
+      </div>        
+    </main>      
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVGdgOJKBUM68fUxeK7UJLfy-Ninw-CaU&sensor=true"></script>
-    <script src="/static/js/script.js"></script>
+    <script src="/javascripts/min.js"></script>
   </body>
 </html>
