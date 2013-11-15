@@ -461,3 +461,205 @@ main {
 	-webkit-transform: rotate(180deg);	
 	-moz-transform: rotate(180deg);	
 }
+
+
+@-webkit-keyframes spinProp {
+	0% {  -webkit-transform: rotateX(0deg)}
+	100% { -webkit-transform: rotateX(360deg) }
+}
+
+@-webkit-keyframes fly {
+	0% { left: 100%; top: 10% }
+	25% { top: 20%; }
+	50% { top: 5%; }
+	75% { top: 15%; }
+	100% { left: -300%; top: 25%; }
+}
+
+.airplane {
+  -webkit-animation: fly 40s linear 30s infinite;
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  top: 20%;
+  left: 110%;
+  z-index:9999;
+}
+
+.fuselage {
+  width: 100px;
+  height: 50px;
+  background-color: red;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index:9996;
+  border-radius: 30px / 15px;
+}
+
+.tail-top {
+  -webkit-transform: rotate(2deg);
+  width: 100px;
+  background-color: red;
+  position: absolute;
+  right:-74px;
+  top: 2px;
+  height: 24px;
+}
+
+.tail-bottom {
+  -webkit-transform: rotate(-10deg);
+  width: 100px;
+  background-color: red;
+  position: absolute;
+  right:-74px;
+  top: 21px;
+  height: 20px;
+}
+
+.nose {
+  background-color: yellow;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left:-8px;
+  width: 10px;
+  border-radius: 15px 0px 0px 15px;
+  z-index: 9999;
+}
+
+.top-wing {
+  background-color: #AD0924;
+  height: 12px;
+  position: absolute;
+  top: -40px;
+  width: 75px;
+  left: 15px;
+  border-radius: 20px 20px 70px 70px;
+}
+
+.bottom-wing {
+  background-color: #AD0924;
+  height: 12px;
+  position: absolute;
+  top: 30px;
+  width: 75px;
+  left: 15px;
+  border-radius: 20px 20px 70px 70px;
+  z-index: 9999;
+}
+
+.propeller {
+  left: -20px;
+  z-index: 9999;
+  top: -15px;
+  position: absolute;
+  height: 80px;
+  width: 10px;
+  -webkit-animation: spinProp 0.1s linear infinite;
+}
+
+.night .propeller:before {
+  border-top: 40px solid #444;
+}
+
+.night .propeller:after {
+  border-bottom: 40px solid #444;
+}
+
+.propeller:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 40px solid #222;
+  position: absolute;
+  border-radius: 6px 6px 0px 0px;
+}
+
+.propeller:after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 40px solid #222;
+  position: absolute;
+  top: 39px;
+  z-index: 9999;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.tail {
+  width: 15px;
+  height: 50px;
+  top: -18px;
+  background-color: red;
+  position: absolute;
+  right: -80px;
+  border-radius: 0px 0px 5px 0px;
+}
+
+.tail:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 40px solid transparent;
+  border-right: 20px solid red;
+  position: absolute;
+  right: 15px;
+}
+
+.windshield {
+  width:10px; 
+  height:10px; 
+  background: #fff;
+  opacity: 0.5;
+  border-radius: 9px 0 0 0;
+  -moz-border-radius: 9px 0 0 0;
+  -webkit-border-radius: 9px 0 0 0;
+  position: absolute;
+  top: -8px;
+  right: 55px;
+  z-index: 9995;
+}
+
+.wheel {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: black;
+  position: absolute;
+  bottom: -25px;
+  left: 18px;
+}
+
+.wheel:before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.wheel.rear {
+  width: 10px;
+  height: 10px;
+  bottom: 5px;
+  left: 170px;
+}
+
+.wheel.rear:before {
+  width: 4px;
+  height: 4px;
+  top: 3px;
+  left: 3px;
+}
+
+.night .wheel {
+  background: #444;
+}
